@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
-import "./index.css";
 import createSagaMiddleware from "redux-saga";
 import globalReducer from "./containers/App/reducer";
 import appSaga from "./containers/App/sagas";
