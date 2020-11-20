@@ -52,6 +52,7 @@ const Gallery = () => {
             marginBottom: "80px",
             fontSize: "3vw",
             textAlign: "center",
+            color: "#1C2331",
           }}
         >
           TOUR GALLERY

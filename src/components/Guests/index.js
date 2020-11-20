@@ -12,6 +12,7 @@ const Guests = () => {
             fontSize: "30px",
             marginBottom: "80px",
             fontSize: "3vw",
+            color: "#1C2331",
           }}
         >
           GUESTS PERFORMERS

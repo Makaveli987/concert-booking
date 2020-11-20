@@ -22,15 +22,11 @@ const Contact = () => {
             marginBottom: "80px",
             fontSize: "3vw",
             textAlign: "center",
+            color: "#1C2331",
           }}
         >
           CONTACT US
         </h2>
-        {/* <p className="text-center w-responsive mx-auto pb-5">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error
-        amet numquam iure provident voluptate esse quasi, veritatis totam
-        voluptas nostrum quisquam eum porro a pariatur veniam.
-      </p> */}
         <MDBRow>
           <MDBCol md="9" className="md-0 mb-5">
             <form>
@@ -104,7 +100,7 @@ const Contact = () => {
       <div
         className="footer-copyright text-center py-3"
         style={{
-          backgroundColor: "#2e2e2e ",
+          backgroundColor: "#1C2331 ",
           marginTop: "30px",
           color: "#fff",
         }}
