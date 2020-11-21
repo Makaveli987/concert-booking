@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUsers } from "./reducer";
 import Home from "../../components/Home";
@@ -8,7 +8,6 @@ import About from "../../components/About";
 import Gallery from "../../components/Gallery";
 import Contact from "../../components/Contact";
 import BuyTickets from "../BuyTickets";
-import Navbar from "../../components/Navbar";
 
 const App = () => {
   const dispatch = useDispatch();

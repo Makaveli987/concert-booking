@@ -7,7 +7,8 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import createSagaMiddleware from "redux-saga";
 import globalReducer from "./containers/App/reducer";
-import appSaga from "./containers/App/sagas";
+import ticketsReducer from "./containers/BuyTickets/reducer";
+import appSaga from "./containers/BuyTickets/sagas";
 import App from "./containers/App/App";
 
 import registerServiceWorker from "./registerServiceWorker";
@@ -16,7 +17,7 @@ const sagaMiddleware = createSagaMiddleware();
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  globalReducer,
+  ticketsReducer,
   composeEnhancer(applyMiddleware(sagaMiddleware))
 );
 sagaMiddleware.run(appSaga);

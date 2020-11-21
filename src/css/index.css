@@ -1,0 +1,15 @@
+
+.seat {
+  width: 30px;
+  height: 30px;
+  background: #dddddd;
+  border-radius: 5px;
+  text-align: center;
+  margin: 4px;
+  /* border: 1px solid #999; */
+  cursor: pointer;
+  line-height: 30px;
+  opacity: 0.6;
+}
+
+.seat:hover {opacity: 1}

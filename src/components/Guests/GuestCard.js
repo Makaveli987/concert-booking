@@ -11,7 +11,7 @@ import {
 
 const Card = (props) => {
   return (
-    <MDBCard style={{ maxWidth: "400px", margin: "20px auto" }}>
+    <MDBCard style={{ maxWidth: "400px", margin: "20 auto" }}>
       <MDBCardImage
         top
         src={props.img}

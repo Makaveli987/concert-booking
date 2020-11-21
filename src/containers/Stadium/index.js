@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { MDBRow, MDBCol } from "mdbreact";
+import { MDBRow, MDBCol, MDBBtn, MDBTypography } from "mdbreact";
 import { useDispatch } from "react-redux";
 import { getUsers } from "./reducer";
 import Seat from "../../components/Stadium/Seat";
 import { Balcony } from "../../components/Stadium/Balcony";
 import { Vip } from "../../components/Stadium/Vip";
 import { Floor } from "../../components/Stadium/Floor";
+import Login from "../../components/DialogManager/Login";
+import Register from "../../components/DialogManager/Register";
 
 const Stadium = () => {
   const dispatch = useDispatch();
-  const [collapse, setCollapse] = useState(false);
-  const [isWideEnough, setIsWideEnough] = useState(false);
-
-  const onClick = () => {
-    setCollapse(!collapse);
-  };
+  // const [collapse, setCollapse] = useState(false);
 
   const Action = {
     getUsers: (payload) => dispatch(getUsers(payload)),
@@ -27,6 +23,54 @@ const Stadium = () => {
 
   return (
     <div id="stadium">
+      {/* <MDBCol style={{ border: "1px solid #eee" }}> */}
+      <MDBCol>
+        <MDBRow>
+          <MDBCol style={{ textAlign: "left", fontWeight: "bold" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                margin: "20px 0",
+              }}
+            >
+              <MDBTypography style={{ margin: "0 10px 0 0" }} tag="h5">
+                <strong>Seats: </strong>
+              </MDBTypography>
+              {/* render selected seats */}
+              <Seat />
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <MDBTypography style={{ margin: "0" }} tag="h5">
+                <strong>Price</strong>:{" "}
+              </MDBTypography>
+              <span
+                style={{
+                  fontWeight: "normal",
+                  fontSize: "26px",
+                  marginLeft: "10px",
+                }}
+              >
+                650$
+              </span>
+            </div>
+          </MDBCol>
+          <MDBCol size="3">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                height: "100%",
+              }}
+            >
+              <MDBBtn color="danger">Buy tickets</MDBBtn>
+            </div>
+          </MDBCol>
+        </MDBRow>
+      </MDBCol>
+      <br />
       <MDBCol style={{ border: "1px solid #eee", textAlign: "center" }}>
         <br />
         <p style={{ textAlign: "center" }}>STAGE</p>
@@ -38,6 +82,8 @@ const Stadium = () => {
         <Balcony section="Right Balcony" />
       </MDBRow>
       <Vip />
+      <Login />
+      <Register />
     </div>
   );
 };

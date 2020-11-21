@@ -17,7 +17,7 @@ const About = () => {
             <h2
               className="font-weight-bold"
               style={{
-                fontSize: "30px",
+                // fontSize: "30px",
                 marginBottom: "80px",
                 color: "#fff",
                 fontSize: "3vw",

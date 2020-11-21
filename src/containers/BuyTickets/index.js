@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -8,29 +9,30 @@ import {
   MDBNavItem,
   MDBNavLink,
   MDBContainer,
-  MDBRow,
-  MDBCol,
 } from "mdbreact";
 import { useDispatch } from "react-redux";
-import { getUsers } from "./reducer";
 import Stadium from "../Stadium";
+import { toggleLogin, toggleRegister } from "./reducer";
+import { getIsLoginOpen, getIsRegisterOpen } from "./selectors";
 
 const BuyTickets = () => {
   const dispatch = useDispatch();
   const [collapse, setCollapse] = useState(false);
-  const [isWideEnough, setIsWideEnough] = useState(false);
+  const [isWideEnough] = useState(false);
 
   const onClick = () => {
     setCollapse(!collapse);
   };
 
-  const Action = {
-    getUsers: (payload) => dispatch(getUsers(payload)),
+  const Selector = {
+    isLoginOpen: useSelector(getIsLoginOpen),
+    isRegisterOpen: useSelector(getIsRegisterOpen),
   };
 
-  useEffect(() => {
-    Action.getUsers();
-  });
+  const Action = {
+    toggleLogin: (payload) => dispatch(toggleLogin(payload)),
+    toggleRegister: (payload) => dispatch(toggleRegister(payload)),
+  };
 
   return (
     <div>
@@ -40,7 +42,6 @@ const BuyTickets = () => {
         dark
         expand="md"
         scrolling
-        // transparent
       >
         <MDBContainer>
           <MDBNavbarBrand href="/">
@@ -50,15 +51,29 @@ const BuyTickets = () => {
           <MDBCollapse isOpen={collapse} navbar>
             <MDBNavbarNav left>
               <MDBNavItem active>
-                <MDBNavLink to="#">Home</MDBNavLink>
+                <MDBNavLink to="/">Home</MDBNavLink>
               </MDBNavItem>
             </MDBNavbarNav>
             <MDBNavbarNav right>
-              <MDBNavItem active>
-                <MDBNavLink to="#">Sign In</MDBNavLink>
+              <MDBNavItem>
+                <MDBNavLink
+                  to="#"
+                  onClick={() => {
+                    Action.toggleLogin(!Selector.isLoginOpen);
+                  }}
+                >
+                  Sign In
+                </MDBNavLink>
               </MDBNavItem>
               <MDBNavItem>
-                <MDBNavLink to="#">Register</MDBNavLink>
+                <MDBNavLink
+                  to="#"
+                  onClick={() => {
+                    Action.toggleRegister(!Selector.isRegisterOpen);
+                  }}
+                >
+                  Register
+                </MDBNavLink>
               </MDBNavItem>
             </MDBNavbarNav>
           </MDBCollapse>

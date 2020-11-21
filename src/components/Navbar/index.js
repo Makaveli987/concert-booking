@@ -12,7 +12,7 @@ import {
 
 const Navbar = () => {
   const [collapse, setCollapse] = useState(false);
-  const [isWideEnough, setIsWideEnough] = useState(false);
+  const [isWideEnough] = useState(false);
 
   const onClick = () => {
     setCollapse(!collapse);
@@ -50,7 +50,7 @@ const Navbar = () => {
               <MDBNavLink to="#">Contact</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
-              <MDBNavLink to="#">Buy Tickets</MDBNavLink>
+              <MDBNavLink to="/buy_tickets">Buy Tickets</MDBNavLink>
             </MDBNavItem>
           </MDBNavbarNav>
           <MDBNavbarNav right>

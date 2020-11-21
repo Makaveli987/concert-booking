@@ -18,7 +18,7 @@ const Contact = () => {
         <h2
           className="font-weight-bold"
           style={{
-            fontSize: "30px",
+            // fontSize: "30px",
             marginBottom: "80px",
             fontSize: "3vw",
             textAlign: "center",

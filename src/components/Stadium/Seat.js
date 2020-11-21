@@ -1,20 +1,9 @@
 import React from "react";
-
-const seatStyle = {
-  width: "30px",
-  height: "30px",
-  background: "#eee",
-  borderRadius: "5px",
-  textAlign: "center",
-  margin: "4px",
-  border: "1px solid #999",
-  cursor: "pointer",
-  lineHeight: "30px",
-};
+import "../../css/index.css";
 
 const Seat = () => {
   return (
-    <div style={seatStyle}>
+    <div className="seat">
       <p style={{ margin: "auto 0" }}>a1</p>
     </div>
   );

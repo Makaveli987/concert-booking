@@ -4,6 +4,7 @@
   "private": true,
   "// If You want to install mdbreact from our GitLab repository, please replace '4.27.0' with gitURL provided here ->": "git+https://oauth2:<YOUR-TOKEN-GOES-HERE>@git.mdbootstrap.com/mdb/react/re-pro.git",
   "dependencies": {
+    "immutable": "^4.0.0-rc.12",
     "isomorphic-fetch": "^3.0.0",
     "mdbreact": "4.27.0",
     "react": "^16.12.0",
@@ -14,6 +15,8 @@
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
+    "redux-immutable": "^4.0.0",
+    "redux-persist-transform-immutable": "^5.0.0",
     "redux-saga": "^1.1.3"
   },
   "scripts": {

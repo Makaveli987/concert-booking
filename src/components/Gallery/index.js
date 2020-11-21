@@ -6,7 +6,7 @@ import "../../css/Lightbox.css";
 const Gallery = () => {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [images, setImages] = useState([
+  const [images] = useState([
     "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg",
     "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(98).jpg",
     "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(131).jpg",
@@ -48,7 +48,7 @@ const Gallery = () => {
         <h2
           className="font-weight-bold"
           style={{
-            fontSize: "30px",
+            // fontSize: "30px",
             marginBottom: "80px",
             fontSize: "3vw",
             textAlign: "center",
