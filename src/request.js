@@ -18,25 +18,51 @@ export function request(url, options) {
   return fetch(url, options).then(checkStatus).then(parseJSON);
 }
 
+const checkUser = (user) => {
+  if (user) {
+    return user;
+  }
+};
+
 export const fbRegisterUser = (name, email, password) => {
   app
     .auth()
     .createUserWithEmailAndPassword(email, password)
     .then((user) => {
-      const currentUser = app.auth().currentUser;
-      currentUser
-        .updateProfile({
-          displayName: name,
-        })
-        .then(function () {
-          return currentUser;
-        })
-        .catch(function (error) {
-          return error;
-        });
+      updateUserName(user, name);
     })
+    .then(checkUser)
     .catch((error) => {
       return error;
+    });
+};
+
+export const updateUserName = (user, name) => {
+  const currentUser = app.auth().currentUser;
+  console.log("currentUser", currentUser);
+  currentUser
+    .updateProfile({
+      displayName: name,
+    })
+    .then(function (response) {
+      console.log("updated");
+      return currentUser;
+    })
+    .catch(function (error) {
+      throw error;
+    });
+};
+
+export const fbGetUserByEmail = (email) => {
+  app
+    .auth()
+    .getUserByEmail(email)
+    .then(function (userRecord) {
+      // See the UserRecord reference doc for the contents of userRecord.
+      console.log("Successfully fetched user data:", userRecord.json());
+    })
+    .catch(function (error) {
+      console.log("Error fetching user data:", error);
     });
 };
 
