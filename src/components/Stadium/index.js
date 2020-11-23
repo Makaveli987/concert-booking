@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { MDBRow, MDBCol, MDBBtn, MDBTypography } from "mdbreact";
 import { useDispatch } from "react-redux";
-import { getUsers } from "./reducer";
-import Seat from "../../components/Stadium/Seat";
-import { Balcony } from "../../components/Stadium/Balcony";
-import { Vip } from "../../components/Stadium/Vip";
-import { Floor } from "../../components/Stadium/Floor";
+import Seat from "./Seat";
+import { Balcony } from "./Balcony";
+import { Vip } from "./Vip";
+import { Floor } from "./Floor";
 import Login from "../../components/DialogManager/Login";
 import Register from "../../components/DialogManager/Register";
 
@@ -14,11 +13,11 @@ const Stadium = () => {
   // const [collapse, setCollapse] = useState(false);
 
   const Action = {
-    getUsers: (payload) => dispatch(getUsers(payload)),
+    // getUsers: (payload) => dispatch(getUsers(payload)),
   };
 
   useEffect(() => {
-    Action.getUsers();
+    // Action.getUsers();
   });
 
   return (

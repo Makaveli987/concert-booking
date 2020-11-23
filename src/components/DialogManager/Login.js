@@ -9,8 +9,8 @@ import {
   MDBInput,
   MDBCol,
 } from "mdbreact";
-import { getIsLoginOpen } from "../../containers/BuyTickets/selectors";
-import { toggleLogin } from "../../containers/BuyTickets/reducer";
+import { getIsLoginOpen } from "../../containers/App/selectors";
+import { toggleLogin } from "../../containers/App/reducer";
 
 const Login = () => {
   const dispatch = useDispatch();

@@ -1,24 +1,36 @@
 import { createAction } from "redux-actions";
 
-export const GET_USERS = "GET_USERS";
-export const SET_USERS = "SET_USERS";
+export const TOGGLE_LOGIN = "TOGGLE_LOGIN";
+export const TOGGLE_REGISTER = "TOGGLE_REGISTER";
+export const TOGGLE_RESERVED_SEAT = "TOGGLE_RESERVED_SEAT";
+export const REGISTER_USER = "REGISTER_USER";
+export const REGISTER_ERROR_MESSAGE = "REGISTER_ERROR_MESSAGE";
 
 const initialState = {
-  value: 0,
-  users: [],
+  isLoginOpen: false,
+  isRegisterOpen: false,
+  isReservedSeatOpen: false,
+  registerErrorMessage: "",
 };
 
-function globalReducer(state = initialState, action) {
-  console.log(action);
+function ticketsReducer(state = initialState, action) {
   switch (action.type) {
-    case SET_USERS:
-      console.log("SET_USERS");
-      return { users: action.payload };
+    case TOGGLE_LOGIN:
+      return { ...state, isLoginOpen: action.payload };
+    case TOGGLE_REGISTER:
+      return { ...state, isRegisterOpen: action.payload };
+    case TOGGLE_RESERVED_SEAT:
+      return { ...state, isReservedSeatOpen: action.payload };
+    case TOGGLE_RESERVED_SEAT:
+      return { ...state, registerErrorMessage: action.payload };
     default:
       return state;
   }
 }
 
-export default globalReducer;
+export default ticketsReducer;
 
-export const getUsers = createAction(GET_USERS);
+export const toggleLogin = createAction(TOGGLE_LOGIN);
+export const toggleRegister = createAction(TOGGLE_REGISTER);
+export const toggleReservedSeat = createAction(TOGGLE_RESERVED_SEAT);
+export const registerUser = createAction(REGISTER_USER);

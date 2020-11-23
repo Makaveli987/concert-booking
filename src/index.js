@@ -1,14 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import createSagaMiddleware from "redux-saga";
 import globalReducer from "./containers/App/reducer";
-import ticketsReducer from "./containers/BuyTickets/reducer";
-import appSaga from "./containers/BuyTickets/sagas";
+import appSaga from "./containers/App/sagas";
 import App from "./containers/App/App";
 
 import registerServiceWorker from "./registerServiceWorker";
@@ -16,8 +15,13 @@ import registerServiceWorker from "./registerServiceWorker";
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+// const rootReducer = combineReducers({
+//   global: globalReducer,
+//   tickets: ticketsReducer,
+// });
+
 const store = createStore(
-  ticketsReducer,
+  globalReducer,
   composeEnhancer(applyMiddleware(sagaMiddleware))
 );
 sagaMiddleware.run(appSaga);

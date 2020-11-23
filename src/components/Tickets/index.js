@@ -12,8 +12,12 @@ import {
 } from "mdbreact";
 import { useDispatch } from "react-redux";
 import Stadium from "../Stadium";
-import { toggleLogin, toggleRegister } from "./reducer";
-import { getIsLoginOpen, getIsRegisterOpen } from "./selectors";
+import { toggleLogin, toggleRegister } from "../../containers/App/reducer";
+import {
+  getIsLoginOpen,
+  getIsRegisterOpen,
+} from "../../containers/App/selectors";
+import { fbRegisterUser, fbSignIn, fbSignOut } from "../../request";
 
 const BuyTickets = () => {
   const dispatch = useDispatch();
@@ -51,7 +55,21 @@ const BuyTickets = () => {
           <MDBCollapse isOpen={collapse} navbar>
             <MDBNavbarNav left>
               <MDBNavItem active>
-                <MDBNavLink to="/">Home</MDBNavLink>
+                <MDBNavLink
+                  to="#"
+                  onClick={() => {
+                    // const user = registerUser(
+                    //   "Darko",
+                    //   "test111@gmail.com",
+                    //   "test111"
+                    // );
+                    // console.log(user);
+                    // const user = fbSignIn("test111@gmail.com", "test111");
+                    // console.log(user);
+                  }}
+                >
+                  Home
+                </MDBNavLink>
               </MDBNavItem>
             </MDBNavbarNav>
             <MDBNavbarNav right>
