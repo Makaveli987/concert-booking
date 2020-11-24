@@ -34,7 +34,7 @@ const Stadium = () => {
               }}
             >
               <MDBTypography style={{ margin: "0 10px 0 0" }} tag="h5">
-                <strong>Seats: </strong>
+                <strong style={{ color: "#6b6b6b" }}>Seats: </strong>
               </MDBTypography>
               {/* render selected seats */}
               <Seat />
@@ -42,13 +42,14 @@ const Stadium = () => {
 
             <div style={{ display: "flex", alignItems: "center" }}>
               <MDBTypography style={{ margin: "0" }} tag="h5">
-                <strong>Price</strong>:{" "}
+                <strong style={{ color: "#6b6b6b" }}>Price</strong>:{" "}
               </MDBTypography>
               <span
                 style={{
                   fontWeight: "normal",
                   fontSize: "26px",
                   marginLeft: "10px",
+                  color: "#6b6b6b",
                 }}
               >
                 650$

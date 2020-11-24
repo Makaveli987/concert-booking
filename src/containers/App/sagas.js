@@ -1,18 +1,15 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { REGISTER_USER, SET_USER, SET_REGISTER_ERROR_MESSAGE } from "./reducer";
-import app from "../../base";
 import {
-  request,
-  fbRegisterUser,
-  fbSignIn,
-  fbSignOut,
-  fbGetUserByEmail,
-  updateUserName,
-} from "../../request";
+  REGISTER_USER,
+  SET_ERROR_MESSAGE,
+  SIGNIN_USER,
+  SIGNOUT_USER,
+} from "./reducer";
+import app from "../../base";
+import { request } from "../../request";
 
 function* registerUser(action) {
   try {
-    // console.log(action);
     const response = yield app
       .auth()
       .createUserWithEmailAndPassword(
@@ -43,19 +40,19 @@ function* registerUser(action) {
 
     if (response.message) {
       yield put({
-        type: SET_REGISTER_ERROR_MESSAGE,
+        type: SET_ERROR_MESSAGE,
         payload: response.message,
       });
-    }
-    yield put({
-      type: SET_USER,
-      payload: { name: action.payload.name, email: response.user.email },
-    });
+    } else {
+      yield localStorage.setItem("username", action.payload.name);
+      yield localStorage.setItem("email", response.user.email);
+      yield window.location.reload(false);
 
-    yield put({
-      type: SET_REGISTER_ERROR_MESSAGE,
-      payload: "",
-    });
+      yield put({
+        type: SET_ERROR_MESSAGE,
+        payload: "",
+      });
+    }
 
     console.log("response", response);
   } catch (e) {
@@ -63,8 +60,63 @@ function* registerUser(action) {
   }
 }
 
+function* signInUser(action) {
+  try {
+    const response = yield app
+      .auth()
+      .signInWithEmailAndPassword(action.payload.email, action.payload.password)
+      .then(function (result) {
+        console.log("signed in");
+        console.log("result", result);
+        return result;
+      })
+      .catch(function (error) {
+        console.log(error);
+        return error;
+      });
+
+    if (response.message) {
+      yield put({
+        type: SET_ERROR_MESSAGE,
+        payload: response.message,
+      });
+    } else {
+      yield localStorage.setItem("username", response.user.displayName);
+      yield localStorage.setItem("email", response.user.email);
+      yield window.location.reload(false);
+
+      yield put({
+        type: SET_ERROR_MESSAGE,
+        payload: "",
+      });
+    }
+
+    console.log(response);
+  } catch (error) {}
+}
+
+function* signOutUser(action) {
+  try {
+    const response = yield app
+      .auth()
+      .signOut()
+      .then(function () {
+        localStorage.clear();
+      })
+      .catch(function (error) {
+        console.log(error);
+        return error;
+      });
+    yield window.location.reload(false);
+  } catch (error) {
+    return error;
+  }
+}
+
 function* appSaga() {
   yield takeEvery(REGISTER_USER, registerUser);
+  yield takeEvery(SIGNIN_USER, signInUser);
+  yield takeEvery(SIGNOUT_USER, signOutUser);
 }
 
 export default appSaga;

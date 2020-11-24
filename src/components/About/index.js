@@ -4,6 +4,7 @@ import { MDBContainer, MDBRow, MDBCol, MDBCardImage } from "mdbreact";
 const About = () => {
   return (
     <div
+      id="about"
       className="bg"
       style={{
         backgroundImage:

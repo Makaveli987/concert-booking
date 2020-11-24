@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   MDBNavbar,
@@ -12,16 +12,21 @@ import {
 } from "mdbreact";
 import { useDispatch } from "react-redux";
 import Stadium from "../Stadium";
-import { toggleLogin, toggleRegister } from "../../containers/App/reducer";
+import {
+  toggleLogin,
+  toggleRegister,
+  signOutUser,
+} from "../../containers/App/reducer";
 import {
   getIsLoginOpen,
   getIsRegisterOpen,
+  getUser,
 } from "../../containers/App/selectors";
-import { fbRegisterUser, fbSignIn, fbSignOut } from "../../request";
 
 const BuyTickets = () => {
   const dispatch = useDispatch();
   const [collapse, setCollapse] = useState(false);
+  const [username, setUsername] = useState("");
   const [isWideEnough] = useState(false);
 
   const onClick = () => {
@@ -31,12 +36,19 @@ const BuyTickets = () => {
   const Selector = {
     isLoginOpen: useSelector(getIsLoginOpen),
     isRegisterOpen: useSelector(getIsRegisterOpen),
+    user: useSelector(getUser),
   };
 
   const Action = {
     toggleLogin: (payload) => dispatch(toggleLogin(payload)),
     toggleRegister: (payload) => dispatch(toggleRegister(payload)),
+    signOutUser: (payload) => dispatch(signOutUser(payload)),
   };
+
+  useEffect(() => {
+    const name = localStorage.getItem("username");
+    setUsername(name);
+  }, []);
 
   return (
     <div>
@@ -54,44 +66,49 @@ const BuyTickets = () => {
           {!isWideEnough && <MDBNavbarToggler onClick={onClick} />}
           <MDBCollapse isOpen={collapse} navbar>
             <MDBNavbarNav left>
-              <MDBNavItem active>
-                <MDBNavLink
-                  to="#"
-                  onClick={() => {
-                    // const user = registerUser(
-                    //   "Darko",
-                    //   "test111@gmail.com",
-                    //   "test111"
-                    // );
-                    // console.log(user);
-                    // const user = fbSignIn("test111@gmail.com", "test111");
-                    // console.log(user);
-                  }}
-                >
-                  Home
-                </MDBNavLink>
+              <MDBNavItem>
+                <MDBNavLink to="/">Home</MDBNavLink>
               </MDBNavItem>
             </MDBNavbarNav>
             <MDBNavbarNav right>
+              {username ? (
+                <MDBNavItem>
+                  <MDBNavLink to="#">{username}</MDBNavLink>
+                </MDBNavItem>
+              ) : null}
               <MDBNavItem>
-                <MDBNavLink
-                  to="#"
-                  onClick={() => {
-                    Action.toggleLogin(!Selector.isLoginOpen);
-                  }}
-                >
-                  Sign In
-                </MDBNavLink>
+                {username ? (
+                  <MDBNavLink
+                    to="#"
+                    onClick={() => {
+                      Action.signOutUser();
+                    }}
+                  >
+                    Sign Out
+                  </MDBNavLink>
+                ) : (
+                  <MDBNavLink
+                    to="#"
+                    onClick={() => {
+                      Action.toggleLogin(!Selector.isLoginOpen);
+                      console.log(Selector.user);
+                    }}
+                  >
+                    Sign In
+                  </MDBNavLink>
+                )}
               </MDBNavItem>
               <MDBNavItem>
-                <MDBNavLink
-                  to="#"
-                  onClick={() => {
-                    Action.toggleRegister(!Selector.isRegisterOpen);
-                  }}
-                >
-                  Register
-                </MDBNavLink>
+                {username ? null : (
+                  <MDBNavLink
+                    to="#"
+                    onClick={() => {
+                      Action.toggleRegister(!Selector.isRegisterOpen);
+                    }}
+                  >
+                    Register
+                  </MDBNavLink>
+                )}
               </MDBNavItem>
             </MDBNavbarNav>
           </MDBCollapse>

@@ -18,6 +18,14 @@ const Navbar = () => {
     setCollapse(!collapse);
   };
 
+  const scrollToSection = (element) => {
+    element.scrollIntoView({ behavior: "smooth" });
+    element.classList.add("active");
+    // if (props.screenSize < 750) {
+    //   setIsOpen(!isOpen);
+    // }
+  };
+
   return (
     <MDBNavbar
       color="unique-color-dark"
@@ -28,26 +36,62 @@ const Navbar = () => {
       transparent
     >
       <MDBContainer>
-        <MDBNavbarBrand href="/">
+        <MDBNavbarBrand
+          href="/"
+          onClick={() => scrollToSection(document.getElementById("home"))}
+        >
           <strong>Concert.</strong>
         </MDBNavbarBrand>
         {!isWideEnough && <MDBNavbarToggler onClick={onClick} />}
         <MDBCollapse isOpen={collapse} navbar>
           <MDBNavbarNav left>
-            <MDBNavItem active>
-              <MDBNavLink to="#">Home</MDBNavLink>
+            <MDBNavItem>
+              <MDBNavLink
+                to="#"
+                onClick={() => scrollToSection(document.getElementById("home"))}
+              >
+                Home
+              </MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
-              <MDBNavLink to="#">Guests</MDBNavLink>
+              <MDBNavLink
+                to="#"
+                onClick={() =>
+                  scrollToSection(document.getElementById("guests"))
+                }
+              >
+                Guests
+              </MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
-              <MDBNavLink to="#">About</MDBNavLink>
+              <MDBNavLink
+                to="#"
+                onClick={() =>
+                  scrollToSection(document.getElementById("about"))
+                }
+              >
+                About
+              </MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
-              <MDBNavLink to="#">Gallery</MDBNavLink>
+              <MDBNavLink
+                to="#"
+                onClick={() =>
+                  scrollToSection(document.getElementById("gallery"))
+                }
+              >
+                Gallery
+              </MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
-              <MDBNavLink to="#">Contact</MDBNavLink>
+              <MDBNavLink
+                to="#"
+                onClick={() =>
+                  scrollToSection(document.getElementById("contact"))
+                }
+              >
+                Contact
+              </MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
               <MDBNavLink to="/buy_tickets">Buy Tickets</MDBNavLink>

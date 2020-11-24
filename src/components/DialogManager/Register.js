@@ -12,12 +12,12 @@ import {
 } from "mdbreact";
 import {
   getIsRegisterOpen,
-  getRegisterErrorMessage,
+  getErrorMessage,
 } from "../../containers/App/selectors";
 import {
   toggleRegister,
   registerUser,
-  setRegisterErrorMessage,
+  setErrorMessage,
 } from "../../containers/App/reducer";
 
 const Register = () => {
@@ -25,15 +25,13 @@ const Register = () => {
 
   const Selector = {
     isRegisterOpen: useSelector(getIsRegisterOpen),
-    registerErrorMessage: useSelector(getRegisterErrorMessage),
+    errorMessage: useSelector(getErrorMessage),
   };
 
   const Action = {
     toggleRegister: (payload) => dispatch(toggleRegister(payload)),
     registerUser: (payload) => dispatch(registerUser(payload)),
-    registerUser: (payload) => dispatch(registerUser(payload)),
-    setRegisterErrorMessage: (payload) =>
-      dispatch(setRegisterErrorMessage(payload)),
+    setErrorMessage: (payload) => dispatch(setErrorMessage(payload)),
   };
 
   const [modal14, setModal14] = useState(Selector.isRegisterOpen);
@@ -54,7 +52,7 @@ const Register = () => {
     const passwordConfirm = e.target.elements.passwordConfirm.value;
 
     if (password !== passwordConfirm) {
-      Action.setRegisterErrorMessage("Passwords do not match.");
+      Action.setErrorMessage("Passwords do not match.");
     } else {
       Action.registerUser({ name, email, password });
       Action.toggleRegister(!Selector.isRegisterOpen);
@@ -73,10 +71,8 @@ const Register = () => {
               }}
             >
               <div className="grey-text">
-                {Selector.registerErrorMessage === "" ? null : (
-                  <MDBAlert color="danger">
-                    {Selector.registerErrorMessage}.
-                  </MDBAlert>
+                {Selector.errorMessage === "" ? null : (
+                  <MDBAlert color="danger">{Selector.errorMessage}.</MDBAlert>
                 )}
                 <MDBInput
                   name="name"

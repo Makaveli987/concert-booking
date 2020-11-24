@@ -8,19 +8,30 @@ import {
   MDBModalHeader,
   MDBInput,
   MDBCol,
+  MDBAlert,
 } from "mdbreact";
-import { getIsLoginOpen } from "../../containers/App/selectors";
-import { toggleLogin } from "../../containers/App/reducer";
+import {
+  getIsLoginOpen,
+  getErrorMessage,
+} from "../../containers/App/selectors";
+import {
+  toggleLogin,
+  signInUser,
+  setErrorMessage,
+} from "../../containers/App/reducer";
 
 const Login = () => {
   const dispatch = useDispatch();
 
   const Selector = {
     isLoginOpen: useSelector(getIsLoginOpen),
+    errorMessage: useSelector(getErrorMessage),
   };
 
   const Action = {
     toggleLogin: (payload) => dispatch(toggleLogin(payload)),
+    signInUser: (payload) => dispatch(signInUser(payload)),
+    setErrorMessage: (payload) => dispatch(setErrorMessage(payload)),
   };
 
   const [modal14, setModal14] = useState(Selector.isLoginOpen);
@@ -33,15 +44,32 @@ const Login = () => {
     setModal14(Selector.isLoginOpen);
   }, [Selector.isLoginOpen]);
 
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    const email = e.target.elements.email.value;
+    const password = e.target.elements.password.value;
+
+    Action.signInUser({ email, password });
+    Action.toggleLogin(!Selector.isLoginOpen);
+  };
+
   return (
     <MDBContainer>
       <MDBModal isOpen={modal14} toggle={toggle()} centered>
         <MDBModalHeader toggle={toggle()}>Login</MDBModalHeader>
         <MDBModalBody>
           <MDBCol>
-            <form>
+            <form
+              onSubmit={(e) => {
+                onFormSubmit(e);
+              }}
+            >
               <div className="grey-text">
+                {Selector.errorMessage === "" ? null : (
+                  <MDBAlert color="danger">{Selector.errorMessage}.</MDBAlert>
+                )}
                 <MDBInput
+                  name="email"
                   label="Type your email"
                   icon="envelope"
                   group
@@ -51,6 +79,7 @@ const Login = () => {
                   success="right"
                 />
                 <MDBInput
+                  name="password"
                   label="Type your password"
                   icon="lock"
                   group
@@ -59,7 +88,7 @@ const Login = () => {
                 />
               </div>
               <div className="text-center">
-                <MDBBtn>Sign In</MDBBtn>
+                <MDBBtn type="submit">Sign In</MDBBtn>
               </div>
             </form>
           </MDBCol>
