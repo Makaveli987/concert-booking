@@ -2,17 +2,23 @@ import React, { useState } from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import Lightbox from "react-image-lightbox";
 import "../../css/Lightbox.css";
+import imgOne from "../../images/concert-1.jpg";
+import imgTwo from "../../images/concert-2.jpg";
+import imgFour from "../../images/concert-4.jpg";
+import imgFive from "../../images/concert-5.jpg";
+import imgSix from "../../images/concert-6.jpg";
+import imgSeven from "../../images/concert-7.jpg";
 
 const Gallery = () => {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [images] = useState([
-    "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg",
-    "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(98).jpg",
-    "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(131).jpg",
-    "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(123).jpg",
-    "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(118).jpg",
-    "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(128).jpg",
+    imgOne,
+    imgTwo,
+    imgSeven,
+    imgFour,
+    imgFive,
+    imgSix,
   ]);
 
   const renderImages = () => {

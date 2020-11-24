@@ -1,6 +1,8 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import GuestCard from "./GuestCard";
+import guestOne from "../../images/guest-1.jpg";
+import guestTwo from "../../images/guest-2.jpg";
 
 const Guests = () => {
   return (
@@ -19,10 +21,7 @@ const Guests = () => {
         </h2>
         <MDBRow>
           <MDBCol>
-            <GuestCard
-              img="https://www.sqoop.co.ug/wp-content/uploads/2019/09/safe_image-1000x600.jpg"
-              name="Torry Jaden"
-            />
+            <GuestCard img={guestOne} name={guestTwo} />
           </MDBCol>
           <MDBCol>
             <GuestCard

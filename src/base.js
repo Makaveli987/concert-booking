@@ -13,17 +13,3 @@ const app = firebase.initializeApp({
 });
 
 export default app;
-
-export function registerUser(email, password) {
-  app
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then((user) => {
-      console.log(user);
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ..
-    });
-}

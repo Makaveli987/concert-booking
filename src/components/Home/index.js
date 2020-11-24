@@ -9,10 +9,7 @@ const Home = () => {
     <div id="home">
       <Navbar />
       <MDBView src="https://ld-wt73.template-help.com/tf/bandico_v2/images/bg-image-1.jpg">
-        <MDBMask
-          // overlay="black-strong"
-          className="flex-center flex-column text-white text-center"
-        >
+        <MDBMask className="flex-center flex-column text-white text-center">
           <h2 className="font-weight-bold" style={{ fontSize: "8vw" }}>
             BANDICO
           </h2>

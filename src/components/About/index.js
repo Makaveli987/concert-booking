@@ -1,5 +1,6 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBCardImage } from "mdbreact";
+import signature from "../../images/signature-2-230x78.png";
 
 const About = () => {
   return (
@@ -7,8 +8,7 @@ const About = () => {
       id="about"
       className="bg"
       style={{
-        backgroundImage:
-          "url(https://ld-wt73.template-help.com/tf/bandico_v2/images/bg-about-1.jpg)",
+        backgroundImage: `url(${require("../../images/bg-about.jpg")})`,
         padding: "80px 0",
       }}
     >
@@ -41,7 +41,7 @@ const About = () => {
             <br />
             <MDBCardImage
               top
-              src="https://ld-wt73.template-help.com/tf/bandico_v2/images/signature-2-230x78.png"
+              src={signature}
               overlay="white-slight"
               hover
               waves

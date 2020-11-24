@@ -144,7 +144,6 @@ const Navbar = () => {
                   to="#"
                   onClick={() => {
                     Action.toggleLogin(!Selector.isLoginOpen);
-                    console.log(Selector.user);
                   }}
                 >
                   Sign In
