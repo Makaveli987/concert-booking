@@ -8,6 +8,8 @@ import About from "../../components/About";
 import Gallery from "../../components/Gallery";
 import Contact from "../../components/Contact";
 import BuyTickets from "../../components/Tickets";
+import Login from "../../components/DialogManager/Login";
+import Register from "../../components/DialogManager/Register";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,6 +31,8 @@ const App = () => {
           <About />
           <Gallery />
           <Contact />
+          <Login />
+          <Register />
         </Route>
         <Route path="/buy_tickets">
           <BuyTickets />

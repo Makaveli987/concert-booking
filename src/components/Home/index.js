@@ -1,8 +1,10 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { MDBMask, MDBView, MDBBtn } from "mdbreact";
 import Navbar from "../Navbar";
 
 const Home = () => {
+  let history = useHistory();
   return (
     <div id="home">
       <Navbar />
@@ -19,7 +21,15 @@ const Home = () => {
           <h5 style={{ fontSize: "2vw" }}>Belgrade</h5>
           <h5 style={{ fontSize: "2vw" }}>21:00h</h5>
           <br />
-          <MDBBtn color="danger">Buy tickets</MDBBtn>
+
+          <MDBBtn
+            color="danger"
+            onClick={() => {
+              history.push("/buy_tickets");
+            }}
+          >
+            Buy tickets
+          </MDBBtn>
         </MDBMask>
       </MDBView>
     </div>

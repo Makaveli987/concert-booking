@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -10,7 +10,6 @@ import {
   MDBNavLink,
   MDBContainer,
 } from "mdbreact";
-import { useDispatch } from "react-redux";
 import Stadium from "../Stadium";
 import {
   toggleLogin,
@@ -20,7 +19,6 @@ import {
 import {
   getIsLoginOpen,
   getIsRegisterOpen,
-  getUser,
 } from "../../containers/App/selectors";
 
 const BuyTickets = () => {
@@ -36,7 +34,6 @@ const BuyTickets = () => {
   const Selector = {
     isLoginOpen: useSelector(getIsLoginOpen),
     isRegisterOpen: useSelector(getIsRegisterOpen),
-    user: useSelector(getUser),
   };
 
   const Action = {
