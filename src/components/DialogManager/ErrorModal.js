@@ -30,7 +30,7 @@ const ErrorModal = () => {
 
   useEffect(() => {
     setModal14(Selector.isErrorModalOpen);
-  }, [Selector.isReservedSeatOpen]);
+  }, [Selector.isErrorModalOpen]);
 
   return (
     <MDBContainer>

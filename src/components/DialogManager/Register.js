@@ -55,7 +55,6 @@ const Register = () => {
       Action.setErrorMessage("Passwords do not match.");
     } else {
       Action.registerUser({ name, email, password });
-      Action.toggleRegister(!Selector.isRegisterOpen);
     }
   };
 

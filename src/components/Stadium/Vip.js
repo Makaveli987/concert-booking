@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { MDBRow, MDBCol } from "mdbreact";
 import Seat from "./Seat";
 import { getVipSeats } from "../../containers/App/selectors";
 
 export const Vip = () => {
-  const dispatch = useDispatch();
-
   const Selector = {
     vipSeats: useSelector(getVipSeats),
   };
@@ -20,16 +18,10 @@ export const Vip = () => {
         id={seat}
         position={value.position}
         isReserved={value.isReserved}
+        clickable
       />
     );
   });
-
-  // const Action = {
-  //   toggleLogin: (payload) => dispatch(toggleLogin(payload)),
-  //   toggleRegister: (payload) => dispatch(toggleRegister(payload)),
-  //   signOutUser: (payload) => dispatch(signOutUser(payload)),
-  //   getSeats: (payload) => dispatch(getSeats(payload)),
-  // };
 
   return (
     <MDBRow>

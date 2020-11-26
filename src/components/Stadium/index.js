@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MDBRow, MDBCol, MDBBtn, MDBTypography } from "mdbreact";
-import Seat from "./Seat";
 import { Balcony } from "./Balcony";
 import { Vip } from "./Vip";
 import { Floor } from "./Floor";
-import Login from "../../components/DialogManager/Login";
-import Register from "../../components/DialogManager/Register";
-import ErrorModal from "../DialogManager/ErrorModal";
+import { Legend } from "./Legend";
+import {
+  getLeftBalconySeats,
+  getRightBalconySeats,
+} from "../../containers/App/selectors";
+
 import { toggleErrorModal, setPrice } from "../../containers/App/reducer";
 import {
   getIsErrorModalOpen,
@@ -17,12 +19,13 @@ import {
 
 const Stadium = () => {
   const dispatch = useDispatch();
-  // const [collapse, setCollapse] = useState(false);
 
   const Selector = {
     issErrorModalOpen: useSelector(getIsErrorModalOpen),
     selectedSeats: useSelector(getSelectedSeats),
     price: useSelector(getPrice),
+    leftBalconySeats: useSelector(getLeftBalconySeats),
+    rightBalconySeats: useSelector(getRightBalconySeats),
   };
 
   const Action = {
@@ -42,13 +45,11 @@ const Stadium = () => {
 
   useEffect(() => {
     const price = calculatePrice();
-    console.log(price);
     Action.setPrice(price);
   });
 
   return (
     <div id="stadium">
-      {/* <MDBCol style={{ border: "1px solid #eee" }}> */}
       <MDBCol>
         <MDBRow>
           <MDBCol style={{ textAlign: "left", fontWeight: "bold" }}>
@@ -56,15 +57,8 @@ const Stadium = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                margin: "20px 0",
               }}
-            >
-              <MDBTypography style={{ margin: "0 10px 0 0" }} tag="h5">
-                <strong style={{ color: "#6b6b6b" }}>Seats: </strong>
-              </MDBTypography>
-              {/* render selected seats */}
-              <Seat />
-            </div>
+            ></div>
 
             <div style={{ display: "flex", alignItems: "center" }}>
               <MDBTypography style={{ margin: "0" }} tag="h5">
@@ -103,14 +97,23 @@ const Stadium = () => {
         <br />
       </MDBCol>
       <MDBRow style={{ margin: "0 auto" }}>
-        <Balcony section="Left Balcony" />
+        <Balcony
+          section="leftBalcony"
+          title="Left Balcony"
+          seats={Selector.leftBalconySeats}
+        />
         <Floor />
-        <Balcony section="Right Balcony" />
+        <Balcony
+          section="rightBalcony"
+          title="Right Balcony"
+          seats={Selector.rightBalconySeats}
+        />
+        <Vip />
+        <Legend />
+        <br />
+        <br />
+        <br />
       </MDBRow>
-      <Vip />
-      <Login />
-      <Register />
-      <ErrorModal />
     </div>
   );
 };

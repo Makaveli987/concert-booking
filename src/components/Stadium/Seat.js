@@ -28,7 +28,7 @@ const reservedByUserStyle = {
 
 const Seat = (props) => {
   const dispatch = useDispatch();
-  const [isSelected, setIsSelected] = useState(false);
+  const [isSelected, setIsSelected] = useState(props.isSelected);
 
   const Selector = {
     isErrorModalOpen: useSelector(getIsErrorModalOpen),
@@ -41,27 +41,34 @@ const Seat = (props) => {
     removeSelectedSeat: (payload) => dispatch(removeSelectedSeat(payload)),
   };
 
-  const select = () => {
-    console.log(props);
-    if (props.isReserved) {
-      console.log(props.position, " reserved");
-      Action.toggleErrorModal(!Selector.isErrorModalOpen);
-    } else {
-      setIsSelected(!isSelected);
+  const getSeatStyle = () => {
+    if (props.reservedByUser) {
+      return reservedByUserStyle;
+    } else if (props.isReserved) {
+      return reservedStyle;
+    } else if (isSelected) {
+      return selectedStyle;
     }
-    if (!isSelected) {
-      Action.addSelectedSeat(props);
-    } else {
-      Action.removeSelectedSeat(props);
+    return {};
+  };
+
+  const select = () => {
+    if (props.clickable) {
+      if (props.isReserved) {
+        Action.toggleErrorModal(!Selector.isErrorModalOpen);
+      } else {
+        setIsSelected(!isSelected);
+      }
+      if (!props.isReserved && !isSelected) {
+        Action.addSelectedSeat(props);
+      } else {
+        Action.removeSelectedSeat(props);
+      }
     }
   };
 
   return (
-    <div
-      className="seat"
-      onClick={select}
-      style={props.isReserved ? reservedStyle : isSelected ? selectedStyle : {}}
-    >
+    <div className="seat" onClick={select} style={getSeatStyle()}>
       <p style={{ margin: "auto 0", fontSize: "14px" }}>{props.position}</p>
     </div>
   );

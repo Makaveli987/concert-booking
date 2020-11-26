@@ -2,6 +2,8 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import {
   REGISTER_USER,
   SET_ERROR_MESSAGE,
+  TOGGLE_REGISTER,
+  TOGGLE_LOGIN,
   SIGNIN_USER,
   SIGNOUT_USER,
   GET_SEATS,
@@ -49,6 +51,7 @@ function* registerUser(action) {
         type: SET_ERROR_MESSAGE,
         payload: response.message,
       });
+      yield put({ type: TOGGLE_REGISTER, payload: true });
     } else {
       yield localStorage.setItem("username", action.payload.name);
       yield localStorage.setItem("email", response.user.email);
@@ -60,8 +63,6 @@ function* registerUser(action) {
         payload: "",
       });
     }
-
-    console.log("response", response);
   } catch (e) {
     yield put({ type: "USER_FETCH_FAILED", message: e.message });
   }
@@ -85,6 +86,7 @@ function* signInUser(action) {
         type: SET_ERROR_MESSAGE,
         payload: response.message,
       });
+      yield put({ type: TOGGLE_LOGIN, payload: true });
     } else {
       yield localStorage.setItem("username", response.user.displayName);
       yield localStorage.setItem("email", response.user.email);
@@ -96,8 +98,6 @@ function* signInUser(action) {
         payload: "",
       });
     }
-
-    console.log(response);
   } catch (error) {}
 }
 
@@ -124,8 +124,6 @@ function* getSeats(action) {
     const response = yield call(request, GET_SEATS_URL, {
       method: "GET",
     });
-
-    yield console.log(response);
     yield put({ type: SET_VIP_SEATS, payload: response.seats.vip });
     yield put({ type: SET_FLOOR_SEATS, payload: response.seats.floor });
     yield put({

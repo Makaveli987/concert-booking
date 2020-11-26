@@ -21,6 +21,9 @@ import {
   getIsLoginOpen,
   getIsRegisterOpen,
 } from "../../containers/App/selectors";
+import Login from "../../components/DialogManager/Login";
+import Register from "../../components/DialogManager/Register";
+import ErrorModal from "../DialogManager/ErrorModal";
 
 const BuyTickets = () => {
   const dispatch = useDispatch();
@@ -117,9 +120,10 @@ const BuyTickets = () => {
         <br />
         <br />
         <br />
-        <br />
-
         <Stadium />
+        <Login />
+        <Register />
+        <ErrorModal />
       </MDBContainer>
     </div>
   );

@@ -50,7 +50,6 @@ const Login = () => {
     const password = e.target.elements.password.value;
 
     Action.signInUser({ email, password });
-    Action.toggleLogin(!Selector.isLoginOpen);
   };
 
   return (

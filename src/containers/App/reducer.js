@@ -46,7 +46,7 @@ function ticketsReducer(state = initialState, action) {
     case TOGGLE_REGISTER:
       return { ...state, isRegisterOpen: action.payload };
     case TOGGLE_ERROR_MODAL:
-      return { ...state, isReservedSeatOpen: action.payload };
+      return { ...state, isErrorModalOpen: action.payload };
     case SET_ERROR_MESSAGE:
       return { ...state, errorMessage: action.payload };
     case SET_VIP_SEATS:
@@ -58,7 +58,6 @@ function ticketsReducer(state = initialState, action) {
     case SET_LEFT_BALCONY_SEATS:
       return { ...state, leftBalconySeats: action.payload };
     case ADD_SELECTED_SEAT:
-      console.log(action.payload);
       return {
         ...state,
         selectedSeats: [action.payload, ...state.selectedSeats],
