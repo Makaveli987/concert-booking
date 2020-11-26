@@ -1,23 +1,49 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { MDBRow, MDBCol, MDBBtn, MDBTypography } from "mdbreact";
-import { useDispatch } from "react-redux";
 import Seat from "./Seat";
 import { Balcony } from "./Balcony";
 import { Vip } from "./Vip";
 import { Floor } from "./Floor";
 import Login from "../../components/DialogManager/Login";
 import Register from "../../components/DialogManager/Register";
+import ErrorModal from "../DialogManager/ErrorModal";
+import { toggleErrorModal, setPrice } from "../../containers/App/reducer";
+import {
+  getIsErrorModalOpen,
+  getSelectedSeats,
+  getPrice,
+} from "../../containers/App/selectors";
 
 const Stadium = () => {
   const dispatch = useDispatch();
   // const [collapse, setCollapse] = useState(false);
 
+  const Selector = {
+    issErrorModalOpen: useSelector(getIsErrorModalOpen),
+    selectedSeats: useSelector(getSelectedSeats),
+    price: useSelector(getPrice),
+  };
+
   const Action = {
-    // getUsers: (payload) => dispatch(getUsers(payload)),
+    setPrice: (payload) => dispatch(setPrice(payload)),
+    toggleErrorModal: (payload) => dispatch(toggleErrorModal(payload)),
+  };
+
+  const calculatePrice = () => {
+    if (Selector.selectedSeats.length > 0) {
+      const price = Selector.selectedSeats
+        .map((seat) => parseInt(seat.price))
+        .reduce((prev, next) => prev + next);
+      return price;
+    }
+    return 0;
   };
 
   useEffect(() => {
-    // Action.getUsers();
+    const price = calculatePrice();
+    console.log(price);
+    Action.setPrice(price);
   });
 
   return (
@@ -52,7 +78,7 @@ const Stadium = () => {
                   color: "#6b6b6b",
                 }}
               >
-                650$
+                {Selector.price}$
               </span>
             </div>
           </MDBCol>
@@ -84,6 +110,7 @@ const Stadium = () => {
       <Vip />
       <Login />
       <Register />
+      <ErrorModal />
     </div>
   );
 };

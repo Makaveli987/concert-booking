@@ -4,9 +4,15 @@ import {
   SET_ERROR_MESSAGE,
   SIGNIN_USER,
   SIGNOUT_USER,
+  GET_SEATS,
+  SET_VIP_SEATS,
+  SET_FLOOR_SEATS,
+  SET_RIGHT_BALCONY_SEATS,
+  SET_LEFT_BALCONY_SEATS,
 } from "./reducer";
-import app from "../../base";
+import { app } from "../../base";
 import { request } from "../../request";
+import { GET_SEATS_URL, GET_USERS_URL } from "./constants";
 
 function* registerUser(action) {
   try {
@@ -46,6 +52,7 @@ function* registerUser(action) {
     } else {
       yield localStorage.setItem("username", action.payload.name);
       yield localStorage.setItem("email", response.user.email);
+      yield localStorage.setItem("uid", response.user.uid);
       yield window.location.reload(false);
 
       yield put({
@@ -66,8 +73,6 @@ function* signInUser(action) {
       .auth()
       .signInWithEmailAndPassword(action.payload.email, action.payload.password)
       .then(function (result) {
-        console.log("signed in");
-        console.log("result", result);
         return result;
       })
       .catch(function (error) {
@@ -83,6 +88,7 @@ function* signInUser(action) {
     } else {
       yield localStorage.setItem("username", response.user.displayName);
       yield localStorage.setItem("email", response.user.email);
+      yield localStorage.setItem("uid", response.user.uid);
       yield window.location.reload(false);
 
       yield put({
@@ -113,10 +119,37 @@ function* signOutUser(action) {
   }
 }
 
+function* getSeats(action) {
+  try {
+    const response = yield call(request, GET_SEATS_URL, {
+      method: "GET",
+    });
+
+    yield console.log(response);
+    yield put({ type: SET_VIP_SEATS, payload: response.seats.vip });
+    yield put({ type: SET_FLOOR_SEATS, payload: response.seats.floor });
+    yield put({
+      type: SET_LEFT_BALCONY_SEATS,
+      payload: response.seats.leftBalcony,
+    });
+    yield put({
+      type: SET_RIGHT_BALCONY_SEATS,
+      payload: response.seats.rightBalcony,
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: SET_ERROR_MESSAGE,
+      payload: error,
+    });
+  }
+}
+
 function* appSaga() {
   yield takeEvery(REGISTER_USER, registerUser);
   yield takeEvery(SIGNIN_USER, signInUser);
   yield takeEvery(SIGNOUT_USER, signOutUser);
+  yield takeEvery(GET_SEATS, getSeats);
 }
 
 export default appSaga;

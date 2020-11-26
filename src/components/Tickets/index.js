@@ -15,6 +15,7 @@ import {
   toggleLogin,
   toggleRegister,
   signOutUser,
+  getSeats,
 } from "../../containers/App/reducer";
 import {
   getIsLoginOpen,
@@ -40,10 +41,12 @@ const BuyTickets = () => {
     toggleLogin: (payload) => dispatch(toggleLogin(payload)),
     toggleRegister: (payload) => dispatch(toggleRegister(payload)),
     signOutUser: (payload) => dispatch(signOutUser(payload)),
+    getSeats: (payload) => dispatch(getSeats(payload)),
   };
 
   useEffect(() => {
     const name = localStorage.getItem("username");
+    Action.getSeats();
     setUsername(name);
   }, []);
 
@@ -88,7 +91,6 @@ const BuyTickets = () => {
                     to="#"
                     onClick={() => {
                       Action.toggleLogin(!Selector.isLoginOpen);
-                      console.log(Selector.user);
                     }}
                   >
                     Sign In

@@ -1,5 +1,11 @@
 export const getIsLoginOpen = (state) => state.isLoginOpen;
 export const getIsRegisterOpen = (state) => state.isRegisterOpen;
-export const getIsReservedSeatOpen = (state) => state.isReservedSeatOpen;
+export const getIsErrorModalOpen = (state) => state.isErrorModalOpen;
 export const getErrorMessage = (state) => state.errorMessage;
 export const getUser = (state) => state.user;
+export const getVipSeats = (state) => state.vipSeats;
+export const getFloorSeats = (state) => state.floorSeats;
+export const getRightBalconySeats = (state) => state.rightBalconySeats;
+export const getLeftBalconySeats = (state) => state.leftBalconySeats;
+export const getSelectedSeats = (state) => state.selectedSeats;
+export const getPrice = (state) => state.price;

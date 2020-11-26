@@ -2,34 +2,77 @@ import { createAction } from "redux-actions";
 
 export const TOGGLE_LOGIN = "TOGGLE_LOGIN";
 export const TOGGLE_REGISTER = "TOGGLE_REGISTER";
-export const TOGGLE_RESERVED_SEAT = "TOGGLE_RESERVED_SEAT";
+export const TOGGLE_ERROR_MODAL = "TOGGLE_ERROR_MODAL";
 export const REGISTER_USER = "REGISTER_USER";
 export const SIGNIN_USER = "SIGIN_USER";
 export const SIGNOUT_USER = "SIGNOUT";
 export const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE";
 export const SET_USER = "SET_USER";
+export const GET_SEATS = "GET_SEATS";
+export const SET_VIP_SEATS = "SET_VIP_SEATS";
+export const SET_FLOOR_SEATS = "SET_FLOOR_SEATS";
+export const SET_RIGHT_BALCONY_SEATS = "SET_RIGHT_BALCONY_SEATS";
+export const SET_LEFT_BALCONY_SEATS = "SET_LEFT_BALCONY_SEATS";
+export const ADD_SELECTED_SEAT = "ADD_SELECTED_SEAT";
+export const REMOVE_SELECTED_SEAT = "REMOVE_SELECTED_SEAT";
+export const SET_PRICE = "SET_PRICE";
 
 const initialState = {
   isLoginOpen: false,
   isRegisterOpen: false,
-  isReservedSeatOpen: false,
+  isErrorModalOpen: false,
   errorMessage: "",
   user: null,
+  vipSeats: {},
+  floorSeats: {},
+  rightBalconySeats: {},
+  leftBalconySeats: {},
+  selectedSeats: [],
+  price: 0,
 };
+
+function removeSeat(seats, id) {
+  return seats.filter((seat) => {
+    return seat.id !== id;
+  });
+}
 
 function ticketsReducer(state = initialState, action) {
   switch (action.type) {
+    case SET_USER:
+      return { ...state, user: action.payload };
     case TOGGLE_LOGIN:
       return { ...state, isLoginOpen: action.payload };
     case TOGGLE_REGISTER:
       return { ...state, isRegisterOpen: action.payload };
-    case TOGGLE_RESERVED_SEAT:
+    case TOGGLE_ERROR_MODAL:
       return { ...state, isReservedSeatOpen: action.payload };
     case SET_ERROR_MESSAGE:
-      console.log(action.payload);
       return { ...state, errorMessage: action.payload };
-    case SET_USER:
-      return { ...state, user: action.payload };
+    case SET_VIP_SEATS:
+      return { ...state, vipSeats: action.payload };
+    case SET_FLOOR_SEATS:
+      return { ...state, floorSeats: action.payload };
+    case SET_RIGHT_BALCONY_SEATS:
+      return { ...state, rightBalconySeats: action.payload };
+    case SET_LEFT_BALCONY_SEATS:
+      return { ...state, leftBalconySeats: action.payload };
+    case ADD_SELECTED_SEAT:
+      console.log(action.payload);
+      return {
+        ...state,
+        selectedSeats: [action.payload, ...state.selectedSeats],
+      };
+    case REMOVE_SELECTED_SEAT:
+      return {
+        ...state,
+        selectedSeats: removeSeat(state.selectedSeats, action.payload.id),
+      };
+    case SET_PRICE:
+      return {
+        ...state,
+        price: action.payload,
+      };
     default:
       return state;
   }
@@ -39,8 +82,12 @@ export default ticketsReducer;
 
 export const toggleLogin = createAction(TOGGLE_LOGIN);
 export const toggleRegister = createAction(TOGGLE_REGISTER);
-export const toggleReservedSeat = createAction(TOGGLE_RESERVED_SEAT);
+export const toggleErrorModal = createAction(TOGGLE_ERROR_MODAL);
 export const registerUser = createAction(REGISTER_USER);
 export const signInUser = createAction(SIGNIN_USER);
 export const signOutUser = createAction(SIGNOUT_USER);
 export const setErrorMessage = createAction(SET_ERROR_MESSAGE);
+export const getSeats = createAction(GET_SEATS);
+export const addSelectedSeat = createAction(ADD_SELECTED_SEAT);
+export const removeSelectedSeat = createAction(REMOVE_SELECTED_SEAT);
+export const setPrice = createAction(SET_PRICE);
