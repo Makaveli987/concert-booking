@@ -55,7 +55,10 @@ const Seat = (props) => {
   const select = () => {
     if (props.clickable) {
       if (props.isReserved) {
-        Action.toggleErrorModal(!Selector.isErrorModalOpen);
+        Action.toggleErrorModal({
+          status: !Selector.isErrorModalOpen,
+          message: "This seat is already reserved.",
+        });
       } else {
         setIsSelected(!isSelected);
       }

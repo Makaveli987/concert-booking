@@ -3,6 +3,7 @@ import { createAction } from "redux-actions";
 export const TOGGLE_LOGIN = "TOGGLE_LOGIN";
 export const TOGGLE_REGISTER = "TOGGLE_REGISTER";
 export const TOGGLE_ERROR_MODAL = "TOGGLE_ERROR_MODAL";
+export const TOGGLE_BUY_INFO_MODAL = "TOGGLE_BUY_INFO_MODAL";
 export const REGISTER_USER = "REGISTER_USER";
 export const SIGNIN_USER = "SIGIN_USER";
 export const SIGNOUT_USER = "SIGNOUT";
@@ -20,7 +21,9 @@ export const SET_PRICE = "SET_PRICE";
 const initialState = {
   isLoginOpen: false,
   isRegisterOpen: false,
-  isErrorModalOpen: false,
+  isErrorModalOpen: {},
+  isBuyInfoModalOpen: false,
+  errorModalMessage: "",
   errorMessage: "",
   user: null,
   vipSeats: {},
@@ -46,7 +49,13 @@ function ticketsReducer(state = initialState, action) {
     case TOGGLE_REGISTER:
       return { ...state, isRegisterOpen: action.payload };
     case TOGGLE_ERROR_MODAL:
-      return { ...state, isErrorModalOpen: action.payload };
+      return {
+        ...state,
+        isErrorModalOpen: action.payload.status,
+        errorModalMessage: action.payload.message,
+      };
+    case TOGGLE_BUY_INFO_MODAL:
+      return { ...state, isBuyInfoModalOpen: action.payload };
     case SET_ERROR_MESSAGE:
       return { ...state, errorMessage: action.payload };
     case SET_VIP_SEATS:
@@ -82,6 +91,7 @@ export default ticketsReducer;
 export const toggleLogin = createAction(TOGGLE_LOGIN);
 export const toggleRegister = createAction(TOGGLE_REGISTER);
 export const toggleErrorModal = createAction(TOGGLE_ERROR_MODAL);
+export const toggleBuyInfoModal = createAction(TOGGLE_BUY_INFO_MODAL);
 export const registerUser = createAction(REGISTER_USER);
 export const signInUser = createAction(SIGNIN_USER);
 export const signOutUser = createAction(SIGNOUT_USER);

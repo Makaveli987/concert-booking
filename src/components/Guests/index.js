@@ -11,7 +11,6 @@ const Guests = () => {
         <h2
           className="font-weight-bold"
           style={{
-            // fontSize: "30px",
             marginBottom: "80px",
             fontSize: "3vw",
             color: "#1C2331",
@@ -19,17 +18,20 @@ const Guests = () => {
         >
           GUESTS PERFORMERS
         </h2>
-        <MDBRow>
-          <MDBCol>
-            <GuestCard img={guestOne} name={guestTwo} />
-          </MDBCol>
-          <MDBCol>
-            <GuestCard
-              img="https://ftw.usatoday.com/wp-content/uploads/sites/90/2019/01/marron5.jpg?w=1000&h=600&crop=1"
-              name="Jason Derulo"
-            />
-          </MDBCol>
-        </MDBRow>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "",
+          }}
+        >
+          <div>
+            <GuestCard img={guestOne} name="Jannet Taylor" />
+          </div>
+          <div>
+            <GuestCard img={guestTwo} name="Jason Derulo" />
+          </div>
+        </div>
       </MDBContainer>
     </div>
   );

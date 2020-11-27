@@ -125,6 +125,18 @@ const BuyTickets = () => {
         <Register />
         <ErrorModal />
       </MDBContainer>
+      <div
+        className="footer-copyright text-center py-3"
+        style={{
+          backgroundColor: "#1C2331 ",
+          marginTop: "30px",
+          color: "#fff",
+        }}
+      >
+        <MDBContainer fluid>
+          &copy; {new Date().getFullYear()} All Right Reserved.
+        </MDBContainer>
+      </div>
     </div>
   );
 };

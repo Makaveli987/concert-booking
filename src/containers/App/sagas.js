@@ -91,6 +91,7 @@ function* signInUser(action) {
       yield localStorage.setItem("username", response.user.displayName);
       yield localStorage.setItem("email", response.user.email);
       yield localStorage.setItem("uid", response.user.uid);
+      yield localStorage.setItem("isAdmin", response.user.uid);
       yield window.location.reload(false);
 
       yield put({

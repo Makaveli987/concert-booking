@@ -8,7 +8,10 @@ import {
   MDBModalHeader,
   MDBCol,
 } from "mdbreact";
-import { getIsErrorModalOpen } from "../../containers/App/selectors";
+import {
+  getIsErrorModalOpen,
+  getErrorModalMessage,
+} from "../../containers/App/selectors";
 import { toggleErrorModal } from "../../containers/App/reducer";
 
 const ErrorModal = () => {
@@ -16,6 +19,7 @@ const ErrorModal = () => {
 
   const Selector = {
     isErrorModalOpen: useSelector(getIsErrorModalOpen),
+    errorModalMessage: useSelector(getErrorModalMessage),
   };
 
   const Action = {
@@ -25,18 +29,21 @@ const ErrorModal = () => {
   const [modal14, setModal14] = useState(Selector.isErrorModalOpen);
 
   const toggle = () => () => {
-    Action.toggleErrorModal(!Selector.isErrorModalOpen);
+    Action.toggleErrorModal({
+      status: !Selector.isErrorModalOpen,
+      message: "",
+    });
   };
 
   useEffect(() => {
-    setModal14(Selector.isErrorModalOpen);
+    setModal14(!Selector.isErrorModalOpen);
   }, [Selector.isErrorModalOpen]);
 
   return (
     <MDBContainer>
       <MDBModal isOpen={modal14} toggle={toggle()} centered>
         <MDBModalHeader toggle={toggle()}>
-          This seat is already reserved
+          {Selector.errorModalMessage}
         </MDBModalHeader>
         <MDBModalBody>
           <MDBCol style={{ textAlign: "center" }}>

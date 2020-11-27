@@ -1,14 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { MDBRow, MDBCol } from "mdbreact";
 import Seat from "./Seat";
+import { PRICES } from "../../containers/App/constants";
 
 export const Balcony = (props) => {
   const seats = Object.entries(props.seats).map(([seat, value]) => {
     return (
       <Seat
         section={props.section}
-        price="130"
+        price={PRICES.balcony}
         key={seat}
         id={seat}
         position={value.position}

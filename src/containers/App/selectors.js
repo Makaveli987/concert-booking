@@ -1,6 +1,8 @@
 export const getIsLoginOpen = (state) => state.isLoginOpen;
 export const getIsRegisterOpen = (state) => state.isRegisterOpen;
 export const getIsErrorModalOpen = (state) => state.isErrorModalOpen;
+export const getIsBuyInfoModalOpen = (state) => state.isBuyInfoModalOpen;
+export const getErrorModalMessage = (state) => state.errorModalMessage;
 export const getErrorMessage = (state) => state.errorMessage;
 export const getUser = (state) => state.user;
 export const getVipSeats = (state) => state.vipSeats;

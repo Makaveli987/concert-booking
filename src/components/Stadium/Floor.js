@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { MDBRow, MDBCol } from "mdbreact";
 import { getFloorSeats } from "../../containers/App/selectors";
+import { PRICES } from "../../containers/App/constants";
 
 import Seat from "./Seat";
 
@@ -14,7 +15,7 @@ export const Floor = () => {
     return (
       <Seat
         section="floor"
-        price="80"
+        price={PRICES.floor}
         key={seat}
         id={seat}
         position={value.position}

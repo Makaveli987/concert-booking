@@ -10,18 +10,23 @@ import {
   getRightBalconySeats,
 } from "../../containers/App/selectors";
 
-import { toggleErrorModal, setPrice } from "../../containers/App/reducer";
+import {
+  toggleErrorModal,
+  setPrice,
+  toggleBuyInfoModal,
+} from "../../containers/App/reducer";
 import {
   getIsErrorModalOpen,
   getSelectedSeats,
   getPrice,
 } from "../../containers/App/selectors";
+import BuyInfoModal from "../DialogManager/BuyInfoModal";
 
 const Stadium = () => {
   const dispatch = useDispatch();
 
   const Selector = {
-    issErrorModalOpen: useSelector(getIsErrorModalOpen),
+    isErrorModalOpen: useSelector(getIsErrorModalOpen),
     selectedSeats: useSelector(getSelectedSeats),
     price: useSelector(getPrice),
     leftBalconySeats: useSelector(getLeftBalconySeats),
@@ -31,6 +36,7 @@ const Stadium = () => {
   const Action = {
     setPrice: (payload) => dispatch(setPrice(payload)),
     toggleErrorModal: (payload) => dispatch(toggleErrorModal(payload)),
+    toggleBuyInfoModal: (payload) => dispatch(toggleBuyInfoModal(payload)),
   };
 
   const calculatePrice = () => {
@@ -43,6 +49,17 @@ const Stadium = () => {
     return 0;
   };
 
+  const buyTickets = () => {
+    if (Selector.selectedSeats.length === 0) {
+      Action.toggleErrorModal({
+        status: !Selector.isErrorModalOpen,
+        message: "No seats selected",
+      });
+    } else {
+      Action.toggleBuyInfoModal(!Selector.isBuyInfoModalOpen);
+    }
+  };
+
   useEffect(() => {
     const price = calculatePrice();
     Action.setPrice(price);
@@ -50,6 +67,29 @@ const Stadium = () => {
 
   return (
     <div id="stadium">
+      <br />
+      <Legend />
+      <MDBCol style={{ border: "1px solid #eee", textAlign: "center" }}>
+        <br />
+        <p style={{ textAlign: "center" }}>STAGE</p>
+        <br />
+      </MDBCol>
+      <MDBRow style={{ margin: "0 auto" }}>
+        <Balcony
+          section="leftBalcony"
+          title="Left Balcony"
+          seats={Selector.leftBalconySeats}
+        />
+        <Floor />
+        <Balcony
+          section="rightBalcony"
+          title="Right Balcony"
+          seats={Selector.rightBalconySeats}
+        />
+        <Vip />
+        <br />
+        {/* <br /> */}
+      </MDBRow>
       <MDBCol>
         <MDBRow>
           <MDBCol style={{ textAlign: "left", fontWeight: "bold" }}>
@@ -85,35 +125,17 @@ const Stadium = () => {
                 height: "100%",
               }}
             >
-              <MDBBtn color="danger">Buy tickets</MDBBtn>
+              <MDBBtn color="danger" onClick={buyTickets}>
+                Buy tickets
+              </MDBBtn>
             </div>
           </MDBCol>
         </MDBRow>
       </MDBCol>
-      <br />
-      <MDBCol style={{ border: "1px solid #eee", textAlign: "center" }}>
-        <br />
-        <p style={{ textAlign: "center" }}>STAGE</p>
-        <br />
-      </MDBCol>
-      <MDBRow style={{ margin: "0 auto" }}>
-        <Balcony
-          section="leftBalcony"
-          title="Left Balcony"
-          seats={Selector.leftBalconySeats}
-        />
-        <Floor />
-        <Balcony
-          section="rightBalcony"
-          title="Right Balcony"
-          seats={Selector.rightBalconySeats}
-        />
-        <Vip />
-        <Legend />
-        <br />
-        <br />
-        <br />
-      </MDBRow>
+      <BuyInfoModal
+        selectedSeats={Selector.selectedSeats}
+        price={Selector.price}
+      />
     </div>
   );
 };

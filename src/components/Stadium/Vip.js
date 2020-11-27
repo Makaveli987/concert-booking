@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { MDBRow, MDBCol } from "mdbreact";
 import Seat from "./Seat";
 import { getVipSeats } from "../../containers/App/selectors";
+import { PRICES } from "../../containers/App/constants";
 
 export const Vip = () => {
   const Selector = {
@@ -13,7 +14,7 @@ export const Vip = () => {
     return (
       <Seat
         section="vip"
-        price="300"
+        price={PRICES.vip}
         key={seat}
         id={seat}
         position={value.position}

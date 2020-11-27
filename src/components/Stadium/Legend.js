@@ -9,6 +9,7 @@ export const Legend = () => {
         display: "flex",
         justifyContent: "space-around",
         alignItems: "space-between",
+        marginBottom: "20px",
       }}
     >
       <div
