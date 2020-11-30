@@ -35,6 +35,7 @@ const BuyInfoModal = (props) => {
   };
 
   useEffect(() => {
+    setErrorMessage("");
     setUsername(localStorage.getItem("username"));
     setEmail(localStorage.getItem("email"));
     setModal14(Selector.isBuyInfoModalOpen);

@@ -122,6 +122,11 @@ const Navbar = () => {
             <MDBNavItem>
               <MDBNavLink to="/buy_tickets">Buy Tickets</MDBNavLink>
             </MDBNavItem>
+            {username === "Admin" ? (
+              <MDBNavItem>
+                <MDBNavLink to="/dashboard">Dashboard</MDBNavLink>
+              </MDBNavItem>
+            ) : null}
           </MDBNavbarNav>
           <MDBNavbarNav right>
             {username ? (

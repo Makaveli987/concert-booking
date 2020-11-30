@@ -9,3 +9,11 @@ export const PRICES = {
   floor: 15,
   balcony: 25,
 };
+
+export const CHART_LABELS = [
+  "Total",
+  "Floor",
+  "Left Balcony",
+  "Right Balcony",
+  "Vip",
+];

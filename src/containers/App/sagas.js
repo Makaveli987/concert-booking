@@ -1,4 +1,5 @@
 import { call, put, takeEvery } from "redux-saga/effects";
+import { push } from "react-router-redux";
 import {
   REGISTER_USER,
   SET_ERROR_MESSAGE,
@@ -14,7 +15,7 @@ import {
 } from "./reducer";
 import { app } from "../../base";
 import { request } from "../../request";
-import { GET_SEATS_URL, GET_USERS_URL } from "./constants";
+import { GET_SEATS_URL, GET_ADMIN_USERS_URL } from "./constants";
 
 function* registerUser(action) {
   try {
@@ -88,12 +89,20 @@ function* signInUser(action) {
       });
       yield put({ type: TOGGLE_LOGIN, payload: true });
     } else {
+      const admin = yield call(request, GET_ADMIN_USERS_URL, {
+        method: "GET",
+      });
       yield localStorage.setItem("username", response.user.displayName);
       yield localStorage.setItem("email", response.user.email);
       yield localStorage.setItem("uid", response.user.uid);
-      yield localStorage.setItem("isAdmin", response.user.uid);
-      yield window.location.reload(false);
-
+      if (response.user.uid === admin.uid) {
+        yield localStorage.setItem("isAdmin", true);
+        yield window.location.reload(false);
+        yield (window.location.pathname = "/dashboard");
+      } else {
+        yield localStorage.setItem("isAdmin", false);
+        yield window.location.reload(false);
+      }
       yield put({
         type: SET_ERROR_MESSAGE,
         payload: "",
@@ -114,7 +123,11 @@ function* signOutUser(action) {
         console.log(error);
         return error;
       });
-    yield window.location.reload(false);
+    if (window.location.pathname === "/dashboard") {
+      yield (window.location.pathname = "/");
+    } else {
+      yield window.location.reload(false);
+    }
   } catch (error) {
     return error;
   }

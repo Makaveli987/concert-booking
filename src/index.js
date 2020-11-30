@@ -15,11 +15,6 @@ import registerServiceWorker from "./registerServiceWorker";
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// const rootReducer = combineReducers({
-//   global: globalReducer,
-//   tickets: ticketsReducer,
-// });
-
 const store = createStore(
   globalReducer,
   composeEnhancer(applyMiddleware(sagaMiddleware))
