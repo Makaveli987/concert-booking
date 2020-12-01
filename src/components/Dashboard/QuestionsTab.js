@@ -1,177 +1,41 @@
-import React from "react";
-import { MDBContainer, MDBMedia, MDBIcon } from "mdbreact";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { MDBMedia, MDBIcon } from "mdbreact";
+import { getQuestionsList } from "../../containers/App/selectors";
+import { getQuestions } from "../../containers/App/reducer";
 
-const QuestionsTab = (props) => {
+const QuestionsTab = () => {
+  const dispatch = useDispatch();
+  const Selector = {
+    questions: useSelector(getQuestionsList),
+  };
+
+  const Action = {
+    getQuestions: (payload) => dispatch(getQuestions(payload)),
+  };
+
+  const renderQuestions = () => {
+    const questions = Selector.questions.map((question) => {
+      return (
+        <MDBMedia tag="li" style={{ margin: "20px 0" }}>
+          <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
+          <MDBMedia body>
+            <MDBMedia heading>{question.name}</MDBMedia>
+            <p>{question.question}</p>
+          </MDBMedia>
+        </MDBMedia>
+      );
+    });
+    return questions;
+  };
+
+  useEffect(() => {
+    Action.getQuestions();
+  }, []);
+
   return (
     <MDBMedia list className="mt-3">
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
-      <MDBMedia tag="li" style={{ margin: "20px 0" }}>
-        <MDBIcon icon="user-alt" size="2x" style={{ margin: "0 20px" }} />
-        <MDBMedia body>
-          <MDBMedia heading>Anna Smith</MDBMedia>
-          <p>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-            scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-            vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-            vulputate fringilla. Donec lacinia congue felis in faucibus.
-          </p>
-        </MDBMedia>
-      </MDBMedia>
+      {renderQuestions()}
     </MDBMedia>
   );
 };

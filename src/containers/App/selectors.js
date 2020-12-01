@@ -11,3 +11,9 @@ export const getRightBalconySeats = (state) => state.rightBalconySeats;
 export const getLeftBalconySeats = (state) => state.leftBalconySeats;
 export const getSelectedSeats = (state) => state.selectedSeats;
 export const getPrice = (state) => state.price;
+export const getQuestionsList = (state) => state.questions;
+export const getReservedSeats = (state) => state.reservedSeats;
+export const getAvailableSeats = (state) => state.availableSeats;
+export const getProfit = (state) => state.profit;
+export const getPotentialProfitInAvailableSeats = (state) =>
+  state.potentialProfitInAvailableSeats;

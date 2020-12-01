@@ -1,5 +1,4 @@
 import "isomorphic-fetch";
-import { app } from "./base";
 
 function parseJSON(response) {
   return response.json();

@@ -13,6 +13,3 @@ export const app = firebase.initializeApp({
   appId: "1:897113892766:web:f6fb5b4dbb4ac699f2188f",
   measurementId: "G-EJR0DLLY4T",
 });
-
-// export const db = app.database();
-// export const firestore = app.firestore();

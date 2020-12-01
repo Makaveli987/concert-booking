@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import Home from "../../components/Home";
 import Guests from "../../components/Guests";
 import About from "../../components/About";
@@ -12,16 +11,11 @@ import Register from "../../components/DialogManager/Register";
 import Dashboard from "../../components/Dashboard";
 
 const App = () => {
-  const dispatch = useDispatch();
   const [isAdmin, setIsAdmin] = useState(false);
-
-  const Action = {
-    // getUsers: (payload) => dispatch(getUsers(payload)),
-  };
 
   useEffect(() => {
     setIsAdmin(localStorage.getItem("isAdmin"));
-  });
+  }, []);
 
   return (
     <Router>

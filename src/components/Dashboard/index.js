@@ -9,9 +9,6 @@ import {
   MDBNavItem,
   MDBNavLink,
   MDBContainer,
-  MDBRow,
-  MDBBreadcrumb,
-  MDBBreadcrumbItem,
 } from "mdbreact";
 import {
   toggleLogin,
@@ -26,7 +23,6 @@ import {
 import Login from "../../components/DialogManager/Login";
 import Register from "../../components/DialogManager/Register";
 import ErrorModal from "../DialogManager/ErrorModal";
-import Card from "./Card";
 import Tab from "./Tab";
 
 const Dashboard = () => {
@@ -126,6 +122,21 @@ const Dashboard = () => {
       <Login />
       <Register />
       <ErrorModal />
+      <div
+        className="footer-copyright text-center py-3"
+        style={{
+          backgroundColor: "#1C2331 ",
+          marginTop: "30px",
+          color: "#fff",
+          position: "fixed",
+          bottom: "0",
+          width: "100vw",
+        }}
+      >
+        <MDBContainer fluid>
+          &copy; {new Date().getFullYear()} All Right Reserved.
+        </MDBContainer>
+      </div>
     </div>
   );
 };

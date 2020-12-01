@@ -35,12 +35,12 @@ const TabContent = (props) => {
       >
         <Chart
           labels={props.labels}
-          data={props.data}
+          data={props.dataReservedSeats}
           title={props.cardOneTitle}
         />
         <Chart
           labels={props.labels}
-          data={props.data}
+          data={props.dataAvailableSeats}
           title={props.cardTwoTitle}
         />
       </div>

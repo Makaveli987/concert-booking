@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { MDBContainer } from "mdbreact";
 import GuestCard from "./GuestCard";
 import guestOne from "../../images/guest-1.jpg";
 import guestTwo from "../../images/guest-2.jpg";

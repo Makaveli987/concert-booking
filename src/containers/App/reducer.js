@@ -17,6 +17,13 @@ export const SET_LEFT_BALCONY_SEATS = "SET_LEFT_BALCONY_SEATS";
 export const ADD_SELECTED_SEAT = "ADD_SELECTED_SEAT";
 export const REMOVE_SELECTED_SEAT = "REMOVE_SELECTED_SEAT";
 export const SET_PRICE = "SET_PRICE";
+export const GET_QUESTIONS = "GET_QUESTIONS";
+export const SET_QUESTIONS = "SET_QUESTIONS";
+export const SET_RESERVED_AND_AVAILABLE_SEATS =
+  "SET_RESERVED_AND_AVAILABLE_SEATS";
+export const GET_RESERVED_AND_AVAILABLE_SEATS =
+  "GET_RESERVED_AND_AVAILABLE_SEATS";
+export const SET_PROFIT = "SET_PROFIT";
 
 const initialState = {
   isLoginOpen: false,
@@ -30,8 +37,37 @@ const initialState = {
   floorSeats: {},
   rightBalconySeats: {},
   leftBalconySeats: {},
+  reservedSeats: {
+    total: 0,
+    vip: 0,
+    floor: 0,
+    leftBalcony: 0,
+    rightBalcony: 0,
+  },
+  availableSeats: {
+    total: 0,
+    vip: 0,
+    floor: 0,
+    leftBalcony: 0,
+    rightBalcony: 0,
+  },
+  profit: {
+    total: 0,
+    vip: 0,
+    floor: 0,
+    leftBalcony: 0,
+    rightBalcony: 0,
+  },
+  potentialProfitInAvailableSeats: {
+    total: 0,
+    vip: 0,
+    floor: 0,
+    leftBalcony: 0,
+    rightBalcony: 0,
+  },
   selectedSeats: [],
   price: 0,
+  questions: [],
 };
 
 function removeSeat(seats, id) {
@@ -81,6 +117,21 @@ function ticketsReducer(state = initialState, action) {
         ...state,
         price: action.payload,
       };
+    case SET_QUESTIONS:
+      return { ...state, questions: action.payload };
+    case SET_RESERVED_AND_AVAILABLE_SEATS:
+      return {
+        ...state,
+        reservedSeats: action.payload.reservedSeats,
+        availableSeats: action.payload.availableSeats,
+      };
+    case SET_PROFIT:
+      return {
+        ...state,
+        profit: action.payload.profit,
+        potentialProfitInAvailableSeats:
+          action.payload.potentialProfitInAvailableSeats,
+      };
     default:
       return state;
   }
@@ -100,3 +151,7 @@ export const getSeats = createAction(GET_SEATS);
 export const addSelectedSeat = createAction(ADD_SELECTED_SEAT);
 export const removeSelectedSeat = createAction(REMOVE_SELECTED_SEAT);
 export const setPrice = createAction(SET_PRICE);
+export const getQuestions = createAction(GET_QUESTIONS);
+export const getReservedAndAvailableSeats = createAction(
+  GET_RESERVED_AND_AVAILABLE_SEATS
+);

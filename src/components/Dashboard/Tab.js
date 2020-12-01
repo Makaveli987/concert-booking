@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   MDBContainer,
   MDBTabPane,
@@ -10,15 +11,41 @@ import {
 import TabContent from "./TabContent";
 import QuestionsTab from "./QuestionsTab";
 import { CHART_LABELS } from "../../containers/App/constants";
+import {
+  getReservedSeats,
+  getAvailableSeats,
+  getProfit,
+  getPotentialProfitInAvailableSeats,
+} from "../../containers/App/selectors";
+import { getReservedAndAvailableSeats } from "../../containers/App/reducer";
 
 const Tab = () => {
+  const dispatch = useDispatch();
   const [activeItem, setActiveItem] = useState("1");
+
+  const Selector = {
+    reservedSeats: useSelector(getReservedSeats),
+    availableSeats: useSelector(getAvailableSeats),
+    profit: useSelector(getProfit),
+    potentialProfitInAvailableSeats: useSelector(
+      getPotentialProfitInAvailableSeats
+    ),
+  };
+
+  const Action = {
+    getReservedAndAvailableSeats: (payload) =>
+      dispatch(getReservedAndAvailableSeats(payload)),
+  };
 
   const toggle = (tab) => (e) => {
     if (activeItem !== tab) {
       setActiveItem(tab);
     }
   };
+
+  useEffect(() => {
+    Action.getReservedAndAvailableSeats();
+  }, []);
 
   return (
     <MDBContainer>
@@ -61,9 +88,22 @@ const Tab = () => {
         <MDBTabPane tabId="1" role="tabpanel">
           <TabContent
             labels={CHART_LABELS}
-            data={[320, 84, 62, 48, 12]}
-            cardOneNumber="320"
-            cardTwoNumber="160"
+            dataReservedSeats={[
+              Selector.reservedSeats.total,
+              Selector.reservedSeats.vip,
+              Selector.reservedSeats.floor,
+              Selector.reservedSeats.leftBalcony,
+              Selector.reservedSeats.rightBalcony,
+            ]}
+            dataAvailableSeats={[
+              Selector.availableSeats.total,
+              Selector.availableSeats.vip,
+              Selector.availableSeats.floor,
+              Selector.availableSeats.leftBalcony,
+              Selector.availableSeats.rightBalcony,
+            ]}
+            cardOneNumber={Selector.reservedSeats.total}
+            cardTwoNumber={Selector.availableSeats.total}
             cardOneTitle="Reserved"
             cardTwoTitle="Available"
           />
@@ -71,11 +111,24 @@ const Tab = () => {
         <MDBTabPane tabId="2" role="tabpanel">
           <TabContent
             labels={CHART_LABELS}
-            data={[320, 84, 62, 48, 12]}
-            cardOneNumber="1215"
-            cardTwoNumber="885"
-            cardOneTitle="Reserved"
-            cardTwoTitle="Available"
+            dataReservedSeats={[
+              Selector.profit.total,
+              Selector.profit.vip,
+              Selector.profit.floor,
+              Selector.profit.leftBalcony,
+              Selector.profit.rightBalcony,
+            ]}
+            dataAvailableSeats={[
+              Selector.potentialProfitInAvailableSeats.total,
+              Selector.potentialProfitInAvailableSeats.vip,
+              Selector.potentialProfitInAvailableSeats.floor,
+              Selector.potentialProfitInAvailableSeats.leftBalcony,
+              Selector.potentialProfitInAvailableSeats.rightBalcony,
+            ]}
+            cardOneNumber={Selector.profit.total}
+            cardTwoNumber={Selector.potentialProfitInAvailableSeats.total}
+            cardOneTitle="Profit"
+            cardTwoTitle="Potential profit in available seats"
             finance
           />
         </MDBTabPane>

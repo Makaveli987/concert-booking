@@ -2,6 +2,9 @@ import React from "react";
 import "../../css/index.css";
 
 const Card = (props) => {
+  const numberWithCommas = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
   return (
     <div class="c-dashboardInfo col-lg-3 col-md-6">
       <div class="wrap">
@@ -9,7 +12,7 @@ const Card = (props) => {
           {props.title}
         </h4>
         <span class="hind-font caption-12 c-dashboardInfo__count">
-          {props.finance ? `${props.number} $` : props.number}
+          {props.finance ? `${numberWithCommas(props.number)} $` : props.number}
         </span>
       </div>
     </div>

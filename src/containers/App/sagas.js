@@ -1,5 +1,4 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { push } from "react-router-redux";
 import {
   REGISTER_USER,
   SET_ERROR_MESSAGE,
@@ -12,10 +11,28 @@ import {
   SET_FLOOR_SEATS,
   SET_RIGHT_BALCONY_SEATS,
   SET_LEFT_BALCONY_SEATS,
+  GET_QUESTIONS,
+  SET_QUESTIONS,
+  GET_RESERVED_AND_AVAILABLE_SEATS,
+  SET_RESERVED_AND_AVAILABLE_SEATS,
+  SET_PROFIT,
 } from "./reducer";
 import { app } from "../../base";
 import { request } from "../../request";
-import { GET_SEATS_URL, GET_ADMIN_USERS_URL } from "./constants";
+import {
+  GET_SEATS_URL,
+  GET_ADMIN_USERS_URL,
+  GET_QUESTIONS_URL,
+  GET_RESERVED_VIP_SEATS_URL,
+  GET_AVAILABLE_VIP_SEATS_URL,
+  GET_RESERVED_FlOOR_SEATS_URL,
+  GET_AVAILABLE_FLOOR_SEATS_URL,
+  GET_RESERVED_LEFT_BALCONY_SEATS_URL,
+  GET_AVAILABLE_LEFT_BALCONY_SEATS_URL,
+  GET_RESERVED_RIGHT_BALCONY_SEATS_URL,
+  GET_AVAILABLE_RIGHT_BALCONY_SEATS_URL,
+  PRICES,
+} from "./constants";
 
 function* registerUser(action) {
   try {
@@ -157,11 +174,144 @@ function* getSeats(action) {
   }
 }
 
+function* getQuestions(action) {
+  try {
+    const response = yield call(request, GET_QUESTIONS_URL, {
+      method: "GET",
+    });
+    yield put({ type: SET_QUESTIONS, payload: response });
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: SET_ERROR_MESSAGE,
+      payload: error,
+    });
+  }
+}
+
+function* getReservedAndAvailableSeats(action) {
+  try {
+    const reservedVip = yield call(request, GET_RESERVED_VIP_SEATS_URL, {
+      method: "GET",
+    });
+    const availableVip = yield call(request, GET_AVAILABLE_VIP_SEATS_URL, {
+      method: "GET",
+    });
+    const reservedFloor = yield call(request, GET_RESERVED_FlOOR_SEATS_URL, {
+      method: "GET",
+    });
+    const availableFloor = yield call(request, GET_AVAILABLE_FLOOR_SEATS_URL, {
+      method: "GET",
+    });
+
+    const reservedLeftBalcony = yield call(
+      request,
+      GET_RESERVED_LEFT_BALCONY_SEATS_URL,
+      {
+        method: "GET",
+      }
+    );
+
+    const availableLeftBalcony = yield call(
+      request,
+      GET_AVAILABLE_LEFT_BALCONY_SEATS_URL,
+      {
+        method: "GET",
+      }
+    );
+    const reservedRightBalcony = yield call(
+      request,
+      GET_RESERVED_RIGHT_BALCONY_SEATS_URL,
+      {
+        method: "GET",
+      }
+    );
+
+    const availableRightBalcony = yield call(
+      request,
+      GET_AVAILABLE_RIGHT_BALCONY_SEATS_URL,
+      {
+        method: "GET",
+      }
+    );
+
+    yield put({
+      type: SET_RESERVED_AND_AVAILABLE_SEATS,
+      payload: {
+        reservedSeats: {
+          total:
+            Object.keys(reservedVip).length +
+            Object.keys(reservedFloor).length +
+            Object.keys(reservedLeftBalcony).length +
+            Object.keys(reservedRightBalcony).length,
+          vip: Object.keys(reservedVip).length,
+          floor: Object.keys(reservedFloor).length,
+          leftBalcony: Object.keys(reservedLeftBalcony).length,
+          rightBalcony: Object.keys(reservedRightBalcony).length,
+        },
+        availableSeats: {
+          total:
+            Object.keys(availableVip).length +
+            Object.keys(availableFloor).length +
+            Object.keys(availableLeftBalcony).length +
+            Object.keys(availableRightBalcony).length,
+          vip: Object.keys(availableVip).length,
+          floor: Object.keys(availableFloor).length,
+          leftBalcony: Object.keys(availableLeftBalcony).length,
+          rightBalcony: Object.keys(availableRightBalcony).length,
+        },
+      },
+    });
+
+    yield put({
+      type: SET_PROFIT,
+      payload: {
+        profit: {
+          total:
+            Object.keys(reservedVip).length * PRICES.vip +
+            Object.keys(reservedFloor).length * PRICES.floor +
+            Object.keys(reservedLeftBalcony).length * PRICES.balcony +
+            Object.keys(reservedRightBalcony).length * PRICES.balcony,
+          vip: Object.keys(reservedVip).length * PRICES.vip,
+          floor: Object.keys(reservedFloor).length * PRICES.floor,
+          leftBalcony: Object.keys(reservedLeftBalcony).length * PRICES.balcony,
+          rightBalcony:
+            Object.keys(reservedRightBalcony).length * PRICES.balcony,
+        },
+        potentialProfitInAvailableSeats: {
+          total:
+            Object.keys(availableVip).length * PRICES.vip +
+            Object.keys(availableFloor).length * PRICES.floor +
+            Object.keys(availableLeftBalcony).length * PRICES.balcony +
+            Object.keys(availableRightBalcony).length * PRICES.balcony,
+          vip: Object.keys(availableVip).length * PRICES.vip,
+          floor: Object.keys(availableFloor).length * PRICES.floor,
+          leftBalcony:
+            Object.keys(availableLeftBalcony).length * PRICES.balcony,
+          rightBalcony:
+            Object.keys(availableRightBalcony).length * PRICES.balcony,
+        },
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: SET_ERROR_MESSAGE,
+      payload: error,
+    });
+  }
+}
+
 function* appSaga() {
   yield takeEvery(REGISTER_USER, registerUser);
   yield takeEvery(SIGNIN_USER, signInUser);
   yield takeEvery(SIGNOUT_USER, signOutUser);
   yield takeEvery(GET_SEATS, getSeats);
+  yield takeEvery(GET_QUESTIONS, getQuestions);
+  yield takeEvery(
+    GET_RESERVED_AND_AVAILABLE_SEATS,
+    getReservedAndAvailableSeats
+  );
 }
 
 export default appSaga;
