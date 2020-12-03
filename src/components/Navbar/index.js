@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -23,10 +24,12 @@ import {
 } from "../../containers/App/selectors";
 
 const Navbar = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const [collapse, setCollapse] = useState(false);
   const [username, setUsername] = useState("");
   const [isWideEnough] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const Selector = {
     isLoginOpen: useSelector(getIsLoginOpen),
@@ -42,6 +45,7 @@ const Navbar = () => {
   useEffect(() => {
     const name = localStorage.getItem("username");
     setUsername(name);
+    setIsAdmin(localStorage.getItem("isAdmin"));
   }, []);
 
   const onClick = () => {
@@ -59,75 +63,100 @@ const Navbar = () => {
       dark
       expand="md"
       scrolling
-      transparent
+      transparent={location.pathname === "/" ? true : false}
     >
       <MDBContainer>
-        <MDBNavbarBrand
-          href="/"
-          onClick={() => scrollToSection(document.getElementById("home"))}
-        >
-          <strong>Concert.</strong>
-        </MDBNavbarBrand>
+        {location.pathname === "/" ? (
+          <MDBNavbarBrand
+            href="/"
+            onClick={() => scrollToSection(document.getElementById("home"))}
+          >
+            <strong>Concert.</strong>
+          </MDBNavbarBrand>
+        ) : (
+          <MDBNavbarBrand href="/">
+            <strong>Concert.</strong>
+          </MDBNavbarBrand>
+        )}
         {!isWideEnough && <MDBNavbarToggler onClick={onClick} />}
         <MDBCollapse isOpen={collapse} navbar>
-          <MDBNavbarNav left>
-            <MDBNavItem>
-              <MDBNavLink
-                to="#"
-                onClick={() => scrollToSection(document.getElementById("home"))}
-              >
-                Home
-              </MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink
-                to="#"
-                onClick={() =>
-                  scrollToSection(document.getElementById("guests"))
-                }
-              >
-                Guests
-              </MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink
-                to="#"
-                onClick={() =>
-                  scrollToSection(document.getElementById("about"))
-                }
-              >
-                About
-              </MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink
-                to="#"
-                onClick={() =>
-                  scrollToSection(document.getElementById("gallery"))
-                }
-              >
-                Gallery
-              </MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink
-                to="#"
-                onClick={() =>
-                  scrollToSection(document.getElementById("contact"))
-                }
-              >
-                Contact
-              </MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink to="/buy_tickets">Buy Tickets</MDBNavLink>
-            </MDBNavItem>
-            {username === "Admin" ? (
+          {location.pathname === "/" ? (
+            <MDBNavbarNav left>
               <MDBNavItem>
-                <MDBNavLink to="/dashboard">Dashboard</MDBNavLink>
+                <MDBNavLink
+                  to="#"
+                  onClick={() =>
+                    scrollToSection(document.getElementById("home"))
+                  }
+                >
+                  Home
+                </MDBNavLink>
               </MDBNavItem>
-            ) : null}
-          </MDBNavbarNav>
+
+              <MDBNavItem>
+                <MDBNavLink
+                  to="#"
+                  onClick={() =>
+                    scrollToSection(document.getElementById("guests"))
+                  }
+                >
+                  Guests
+                </MDBNavLink>
+              </MDBNavItem>
+              <MDBNavItem>
+                <MDBNavLink
+                  to="#"
+                  onClick={() =>
+                    scrollToSection(document.getElementById("about"))
+                  }
+                >
+                  About
+                </MDBNavLink>
+              </MDBNavItem>
+              <MDBNavItem>
+                <MDBNavLink
+                  to="#"
+                  onClick={() =>
+                    scrollToSection(document.getElementById("gallery"))
+                  }
+                >
+                  Gallery
+                </MDBNavLink>
+              </MDBNavItem>
+              <MDBNavItem>
+                <MDBNavLink
+                  to="#"
+                  onClick={() =>
+                    scrollToSection(document.getElementById("contact"))
+                  }
+                >
+                  Contact
+                </MDBNavLink>
+              </MDBNavItem>
+              <MDBNavItem>
+                <MDBNavLink to="/buy_tickets">Buy Tickets</MDBNavLink>
+              </MDBNavItem>
+              {isAdmin === "true" ? (
+                <MDBNavItem>
+                  <MDBNavLink to="/dashboard">Dashboard</MDBNavLink>
+                </MDBNavItem>
+              ) : null}
+            </MDBNavbarNav>
+          ) : (
+            <MDBNavbarNav left>
+              <MDBNavItem>
+                <MDBNavLink to="/">Home</MDBNavLink>
+              </MDBNavItem>
+              <MDBNavItem>
+                <MDBNavLink to="/buy_tickets">Buy Tickets</MDBNavLink>
+              </MDBNavItem>
+              {username === "Admin" ? (
+                <MDBNavItem>
+                  <MDBNavLink to="/dashboard">Dashboard</MDBNavLink>
+                </MDBNavItem>
+              ) : null}
+            </MDBNavbarNav>
+          )}
           <MDBNavbarNav right>
             {username ? (
               <MDBNavItem>

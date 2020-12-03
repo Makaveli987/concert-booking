@@ -24,6 +24,8 @@ export const SET_RESERVED_AND_AVAILABLE_SEATS =
 export const GET_RESERVED_AND_AVAILABLE_SEATS =
   "GET_RESERVED_AND_AVAILABLE_SEATS";
 export const SET_PROFIT = "SET_PROFIT";
+export const SET_TICKET_INFO = "SET_TICKET_INFO";
+export const GET_TICKET_INFO = "GET_TICKET_INFO";
 
 const initialState = {
   isLoginOpen: false,
@@ -68,6 +70,12 @@ const initialState = {
   selectedSeats: [],
   price: 0,
   questions: [],
+  ticketInfo: {
+    section: "",
+    seat: "",
+    buyer: "",
+    date: "",
+  },
 };
 
 function removeSeat(seats, id) {
@@ -132,6 +140,8 @@ function ticketsReducer(state = initialState, action) {
         potentialProfitInAvailableSeats:
           action.payload.potentialProfitInAvailableSeats,
       };
+    case SET_TICKET_INFO:
+      return { ...state, ticketInfo: action.payload };
     default:
       return state;
   }
@@ -152,6 +162,7 @@ export const addSelectedSeat = createAction(ADD_SELECTED_SEAT);
 export const removeSelectedSeat = createAction(REMOVE_SELECTED_SEAT);
 export const setPrice = createAction(SET_PRICE);
 export const getQuestions = createAction(GET_QUESTIONS);
+export const getTicketInfo = createAction(GET_TICKET_INFO);
 export const getReservedAndAvailableSeats = createAction(
   GET_RESERVED_AND_AVAILABLE_SEATS
 );

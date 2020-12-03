@@ -17,3 +17,4 @@ export const getAvailableSeats = (state) => state.availableSeats;
 export const getProfit = (state) => state.profit;
 export const getPotentialProfitInAvailableSeats = (state) =>
   state.potentialProfitInAvailableSeats;
+export const getTicketInfoData = (state) => state.ticketInfo;

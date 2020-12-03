@@ -16,10 +16,13 @@ import {
   GET_RESERVED_AND_AVAILABLE_SEATS,
   SET_RESERVED_AND_AVAILABLE_SEATS,
   SET_PROFIT,
+  GET_TICKET_INFO,
+  SET_TICKET_INFO,
 } from "./reducer";
 import { app } from "../../base";
 import { request } from "../../request";
 import {
+  PRICES,
   GET_SEATS_URL,
   GET_ADMIN_USERS_URL,
   GET_QUESTIONS_URL,
@@ -31,7 +34,7 @@ import {
   GET_AVAILABLE_LEFT_BALCONY_SEATS_URL,
   GET_RESERVED_RIGHT_BALCONY_SEATS_URL,
   GET_AVAILABLE_RIGHT_BALCONY_SEATS_URL,
-  PRICES,
+  GET_TICKET_INFO_URL,
 } from "./constants";
 
 function* registerUser(action) {
@@ -302,12 +305,44 @@ function* getReservedAndAvailableSeats(action) {
   }
 }
 
+function* getTicketInfo(action) {
+  try {
+    const response = yield call(
+      request,
+      GET_TICKET_INFO_URL.replace("[SECTION]", action.payload.section).replace(
+        "[SEAT]",
+        action.payload.seat
+      ),
+      {
+        method: "GET",
+      }
+    );
+    const ticketData = Object.values(response)[0];
+    yield put({
+      type: SET_TICKET_INFO,
+      payload: {
+        section: action.payload.section,
+        seat: ticketData.position,
+        buyer: ticketData.user.name,
+        date: ticketData.date,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: SET_ERROR_MESSAGE,
+      payload: error,
+    });
+  }
+}
+
 function* appSaga() {
   yield takeEvery(REGISTER_USER, registerUser);
   yield takeEvery(SIGNIN_USER, signInUser);
   yield takeEvery(SIGNOUT_USER, signOutUser);
   yield takeEvery(GET_SEATS, getSeats);
   yield takeEvery(GET_QUESTIONS, getQuestions);
+  yield takeEvery(GET_TICKET_INFO, getTicketInfo);
   yield takeEvery(
     GET_RESERVED_AND_AVAILABLE_SEATS,
     getReservedAndAvailableSeats

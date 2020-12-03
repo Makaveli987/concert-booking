@@ -9,6 +9,7 @@ import BuyTickets from "../../components/Tickets";
 import Login from "../../components/DialogManager/Login";
 import Register from "../../components/DialogManager/Register";
 import Dashboard from "../../components/Dashboard";
+import TicketInfo from "../../components/TicketInfo";
 
 const App = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -37,6 +38,7 @@ const App = () => {
             <Dashboard />
           </Route>
         ) : null}
+        <Route exac path="/ticket_info" component={TicketInfo}></Route>
         <Route path="*">
           <div>404</div>
         </Route>
