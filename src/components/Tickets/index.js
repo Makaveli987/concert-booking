@@ -33,8 +33,8 @@ const BuyTickets = () => {
         <br />
         <br />
         <Stadium />
-        {/* <ConcertTicket />
-        <QRCode /> */}
+        <ConcertTicket />
+        <QRCode />
         <Login />
         <Register />
         <ErrorModal />

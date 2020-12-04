@@ -84,7 +84,7 @@ const Tab = () => {
           </MDBNavLink>
         </MDBNavItem>
       </MDBNav>
-      <MDBTabContent activeItem={activeItem}>
+      <MDBTabContent style={{ minHeight: "100vh" }} activeItem={activeItem}>
         <MDBTabPane tabId="1" role="tabpanel">
           <TabContent
             labels={CHART_LABELS}

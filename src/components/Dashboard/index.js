@@ -38,9 +38,6 @@ const Dashboard = () => {
           backgroundColor: "#1C2331 ",
           marginTop: "30px",
           color: "#fff",
-          position: "fixed",
-          bottom: "0",
-          width: "100vw",
         }}
       >
         <MDBContainer fluid>
