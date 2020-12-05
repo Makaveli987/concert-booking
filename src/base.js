@@ -13,3 +13,7 @@ export const app = firebase.initializeApp({
   appId: "1:897113892766:web:f6fb5b4dbb4ac699f2188f",
   measurementId: "G-EJR0DLLY4T",
 });
+
+export const EMAIL_SERVICE_ID = "service_mx9grxo";
+export const EMAIL_TEMPLATE_ID = "template_jvm57kv";
+export const EMAIL_USER_ID = "user_H9ra3C68Nvf8uP8lEk5g6";

@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { renderToString } from "react-dom/server";
 import { useSelector, useDispatch } from "react-redux";
+import emailjs from "emailjs-com";
+import { EMAIL_SERVICE_ID } from "../../base";
+import { EMAIL_TEMPLATE_ID } from "../../base";
+import Email from "../Email";
+
 import {
   MDBContainer,
   MDBBtn,
@@ -10,7 +16,10 @@ import {
   MDBCol,
   MDBAlert,
 } from "mdbreact";
-import { getIsBuyInfoModalOpen } from "../../containers/App/selectors";
+import {
+  getIsBuyInfoModalOpen,
+  getSelectedSeats,
+} from "../../containers/App/selectors";
 import { toggleBuyInfoModal } from "../../containers/App/reducer";
 import Seat from "../Stadium/Seat";
 
@@ -22,6 +31,7 @@ const BuyInfoModal = (props) => {
 
   const Selector = {
     isBuyInfoModalOpen: useSelector(getIsBuyInfoModalOpen),
+    selectedSeats: useSelector(getSelectedSeats),
   };
 
   const Action = {
@@ -48,6 +58,12 @@ const BuyInfoModal = (props) => {
     if (name === "" || email === "") {
       setErrorMessage("Please fill all fields");
     } else {
+      // emailjs.send(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, {
+      //   html_message: renderToString(
+      //     <Email selectedSeats={Selector.selectedSeats} />
+      //   ),
+      //   toEmail: "darko.vidic2@gmail.com",
+      // });
       console.log("payment");
     }
   };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { init } from "emailjs-com";
 import Home from "../../components/Home";
 import Guests from "../../components/Guests";
 import About from "../../components/About";
@@ -10,6 +11,9 @@ import Login from "../../components/DialogManager/Login";
 import Register from "../../components/DialogManager/Register";
 import Dashboard from "../../components/Dashboard";
 import TicketInfo from "../../components/TicketInfo";
+import { EMAIL_USER_ID } from "../../base";
+
+init(EMAIL_USER_ID);
 
 const App = () => {
   const [isAdmin, setIsAdmin] = useState(false);
