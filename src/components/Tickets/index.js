@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { MDBContainer } from "mdbreact";
 import Stadium from "../Stadium";
 import { getSeats } from "../../containers/App/reducer";
@@ -8,13 +8,9 @@ import Login from "../../components/DialogManager/Login";
 import Register from "../../components/DialogManager/Register";
 import ErrorModal from "../DialogManager/ErrorModal";
 import Navbar from "../Navbar";
-import ConcertTicket from "../Email/ConcertTicket";
-import QRCode from "../Email/QRCode";
 
 const BuyTickets = () => {
   const dispatch = useDispatch();
-
-  const Selector = {};
 
   const Action = {
     getSeats: (payload) => dispatch(getSeats(payload)),
@@ -22,7 +18,7 @@ const BuyTickets = () => {
 
   useEffect(() => {
     Action.getSeats();
-  }, []);
+  }, [Action]);
 
   return (
     <div>

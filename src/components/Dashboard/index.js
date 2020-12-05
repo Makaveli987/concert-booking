@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { MDBContainer } from "mdbreact";
 import { getSeats } from "../../containers/App/reducer";
 
@@ -12,16 +12,13 @@ import Tab from "./Tab";
 const Dashboard = () => {
   const dispatch = useDispatch();
 
-  const Selector = {};
-
   const Action = {
     getSeats: (payload) => dispatch(getSeats(payload)),
   };
 
   useEffect(() => {
-    const name = localStorage.getItem("username");
     Action.getSeats();
-  }, []);
+  }, [Action]);
 
   return (
     <div>

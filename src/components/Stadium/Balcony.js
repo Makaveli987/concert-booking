@@ -13,6 +13,12 @@ export const Balcony = (props) => {
         id={seat}
         position={value.position}
         isReserved={value.isReserved}
+        reservedByUser={
+          value.user !== undefined &&
+          localStorage.getItem("email") === value.user.email
+            ? true
+            : false
+        }
         clickable
       />
     );

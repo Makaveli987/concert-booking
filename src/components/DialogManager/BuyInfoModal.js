@@ -20,7 +20,7 @@ import {
   getIsBuyInfoModalOpen,
   getSelectedSeats,
 } from "../../containers/App/selectors";
-import { toggleBuyInfoModal } from "../../containers/App/reducer";
+import { reserveSeat, toggleBuyInfoModal } from "../../containers/App/reducer";
 import Seat from "../Stadium/Seat";
 
 const BuyInfoModal = (props) => {
@@ -36,6 +36,7 @@ const BuyInfoModal = (props) => {
 
   const Action = {
     toggleBuyInfoModal: (payload) => dispatch(toggleBuyInfoModal(payload)),
+    reserveSeat: (payload) => dispatch(reserveSeat(payload)),
   };
 
   const [modal14, setModal14] = useState(Selector.isBuyInfoModalOpen);
@@ -58,12 +59,28 @@ const BuyInfoModal = (props) => {
     if (name === "" || email === "") {
       setErrorMessage("Please fill all fields");
     } else {
+      Selector.selectedSeats.map((seat) => {
+        Action.reserveSeat({
+          data: {
+            position: seat.position,
+            isReserved: true,
+            user: {
+              name,
+              email,
+            },
+          },
+          section: seat.section,
+          seatId: seat.id,
+        });
+      });
       // emailjs.send(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, {
       //   html_message: renderToString(
       //     <Email selectedSeats={Selector.selectedSeats} />
       //   ),
       //   toEmail: "darko.vidic2@gmail.com",
       // });
+
+      // open payment widow
       console.log("payment");
     }
   };

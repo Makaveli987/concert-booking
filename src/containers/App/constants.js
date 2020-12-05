@@ -22,6 +22,8 @@ export const GET_AVAILABLE_RIGHT_BALCONY_SEATS_URL =
   DOMAIN + '/seats/seats/rightBalcony.json?orderBy="isReserved"&equalTo=false';
 export const GET_TICKET_INFO_URL =
   DOMAIN + '/seats/seats/[SECTION].json?orderBy="position"&equalTo="[SEAT]"';
+export const PUT_RESERVED_SEAT_URL =
+  DOMAIN + "/seats/seats/[SECTION]/[SEAT_ID].json";
 
 export const PRICES = {
   vip: 50,

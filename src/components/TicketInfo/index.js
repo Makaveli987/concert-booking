@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import queryString from "query-string";
 import { MDBContainer, MDBBox } from "mdbreact";
-
 import { getTicketInfo } from "../../containers/App/reducer";
 import { getTicketInfoData } from "../../containers/App/selectors";
 import Navbar from "../../components/Navbar/";
@@ -24,7 +23,7 @@ const TicketInfo = (props) => {
   useEffect(() => {
     let queries = queryString.parse(props.location.search);
     Action.getTicketInfo(queries);
-  }, []);
+  }, [Action, props.location.search]);
 
   return (
     <div>

@@ -31,7 +31,7 @@ const QuestionsTab = () => {
 
   useEffect(() => {
     Action.getQuestions();
-  }, []);
+  }, [Action]);
 
   return (
     <MDBMedia list className="mt-3">

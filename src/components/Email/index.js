@@ -8,12 +8,16 @@ const Email = (props) => {
       switch (seat.section) {
         case "floor":
           section = "Floor";
+          break;
         case "vip":
           section = "Vip";
+          break;
         case "leftBalcony":
           section = "Left balcony";
+          break;
         case "rightBalcony":
           section = "Right balcony";
+          break;
         default:
           break;
       }

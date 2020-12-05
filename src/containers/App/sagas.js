@@ -18,6 +18,7 @@ import {
   SET_PROFIT,
   GET_TICKET_INFO,
   SET_TICKET_INFO,
+  RESERVE_SEAT,
 } from "./reducer";
 import { app } from "../../base";
 import { request } from "../../request";
@@ -35,6 +36,7 @@ import {
   GET_RESERVED_RIGHT_BALCONY_SEATS_URL,
   GET_AVAILABLE_RIGHT_BALCONY_SEATS_URL,
   GET_TICKET_INFO_URL,
+  PUT_RESERVED_SEAT_URL,
 } from "./constants";
 
 function* registerUser(action) {
@@ -336,6 +338,32 @@ function* getTicketInfo(action) {
   }
 }
 
+function* reserveSeat(action) {
+  try {
+    const response = yield call(
+      request,
+      PUT_RESERVED_SEAT_URL.replace(
+        "[SECTION]",
+        action.payload.section
+      ).replace("[SEAT_ID]", action.payload.seatId),
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(action.payload.data),
+      }
+    );
+    // ticket reserved
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: SET_ERROR_MESSAGE,
+      payload: error,
+    });
+  }
+}
+
 function* appSaga() {
   yield takeEvery(REGISTER_USER, registerUser);
   yield takeEvery(SIGNIN_USER, signInUser);
@@ -347,6 +375,7 @@ function* appSaga() {
     GET_RESERVED_AND_AVAILABLE_SEATS,
     getReservedAndAvailableSeats
   );
+  yield takeEvery(RESERVE_SEAT, reserveSeat);
 }
 
 export default appSaga;
