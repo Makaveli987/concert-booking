@@ -75,12 +75,12 @@ const BuyInfoModal = (props) => {
       });
       // emailjs.send(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, {
       //   html_message: renderToString(
-      //     <Email selectedSeats={Selector.selectedSeats} />
+      //     <Email name={name} selectedSeats={Selector.selectedSeats} />
       //   ),
       //   toEmail: "darko.vidic2@gmail.com",
       // });
 
-      // open payment widow
+      // open payment window
       console.log("payment");
     }
   };

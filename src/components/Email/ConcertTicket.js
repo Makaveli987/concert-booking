@@ -41,7 +41,7 @@ const ConcertTicket = (props) => {
 
       <img
         style={{ width: "100%" }}
-        src={`https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fconcert-booking.web.app%2Fticket_info%3Fsection%3D${props.section}%26seat%3D${props.seat}&chs=150x150&choe=UTF-8&chld=L|2`}
+        src={`https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fconcert-booking.web.app%2Fticket_info%3Fsection%3D${props.sectionForUrl}%26seat%3D${props.seat}&chs=150x150&choe=UTF-8&chld=L|2`}
         alt="qr code"
       />
     </div>

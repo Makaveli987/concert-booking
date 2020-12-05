@@ -22,7 +22,13 @@ const Email = (props) => {
           break;
       }
 
-      return <ConcertTicket section={section} seat={seat.position} />;
+      return (
+        <ConcertTicket
+          section={section}
+          sectionForUrl={seat.section}
+          seat={seat.position}
+        />
+      );
     });
     return tickets;
   };
@@ -34,12 +40,12 @@ const Email = (props) => {
             <tr>
               <td>
                 <h1>Ticket reservation</h1>
-                <p>Hello {props.name}</p>
+                <p>Hello {props.name},</p>
                 <br />
                 <p>Your ticket reservation was successfull.</p>
                 <p>
                   If you have additional questions please contact us at
-                  office@bandico.com
+                  office@bandico.com.
                 </p>
                 <br />
                 <br />
