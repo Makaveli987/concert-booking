@@ -24,6 +24,7 @@ export const GET_TICKET_INFO_URL =
   DOMAIN + '/seats/seats/[SECTION].json?orderBy="position"&equalTo="[SEAT]"';
 export const PUT_RESERVED_SEAT_URL =
   DOMAIN + "/seats/seats/[SECTION]/[SEAT_ID].json";
+export const SEND_QUESTION_URL = DOMAIN + "/questions.json";
 
 export const PRICES = {
   vip: 50,

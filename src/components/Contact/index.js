@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   MDBContainer,
   MDBRow,
@@ -6,9 +7,32 @@ import {
   MDBIcon,
   MDBBtn,
   MDBInput,
+  MDBAlert,
 } from "mdbreact";
+import { sendQuestion } from "../../containers/App/reducer";
 
 const Contact = () => {
+  const dispatch = useDispatch();
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const Action = {
+    sendQuestion: (payload) => dispatch(sendQuestion(payload)),
+  };
+
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    const name = e.target.elements.name.value;
+    const email = e.target.elements.email.value;
+    const subject = e.target.elements.subject.value;
+    const question = e.target.elements.question.value;
+    if (name === "" || email === "" || subject === "" || question === "") {
+      setErrorMessage("Please fill all fields");
+    } else {
+      Action.sendQuestion({ name, email, subject, question });
+    }
+  };
+
   return (
     <div
       id="contact"
@@ -29,11 +53,24 @@ const Contact = () => {
         </h2>
         <MDBRow>
           <MDBCol md="9" className="md-0 mb-5">
-            <form>
+            {errorMessage === "" ? null : (
+              <MDBAlert color="danger">{errorMessage}.</MDBAlert>
+            )}
+            <form
+              onSubmit={(e) => {
+                onFormSubmit(e);
+              }}
+            >
               <MDBRow>
                 <MDBCol md="6">
                   <div className="md-form mb-0">
-                    <MDBInput type="text" id="contact-name" label="Your name" />
+                    <MDBInput
+                      type="text"
+                      id="contact-name"
+                      label="Your name"
+                      name="name"
+                      validate
+                    />
                   </div>
                 </MDBCol>
                 <MDBCol md="6">
@@ -41,7 +78,9 @@ const Contact = () => {
                     <MDBInput
                       type="text"
                       id="contact-email"
+                      name="email"
                       label="Your email"
+                      validate
                     />
                   </div>
                 </MDBCol>
@@ -53,6 +92,7 @@ const Contact = () => {
                       type="text"
                       id="contact-subject"
                       label="Subject"
+                      name="subject"
                     />
                   </div>
                 </MDBCol>
@@ -64,16 +104,16 @@ const Contact = () => {
                       type="textarea"
                       id="contact-message"
                       label="Your message"
+                      name="question"
                     />
                   </div>
                 </MDBCol>
               </MDBRow>
-            </form>
-            <div className="text-center text-md-left">
-              <MDBBtn color="primary" size="md">
+              <MDBBtn color="primary" size="md" type="submit">
                 Send
               </MDBBtn>
-            </div>
+            </form>
+            <div className="text-center text-md-left"></div>
           </MDBCol>
           <MDBCol md="3" className="text-center">
             <ul className="list-unstyled mb-0">

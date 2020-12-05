@@ -27,6 +27,7 @@ export const SET_PROFIT = "SET_PROFIT";
 export const SET_TICKET_INFO = "SET_TICKET_INFO";
 export const GET_TICKET_INFO = "GET_TICKET_INFO";
 export const RESERVE_SEAT = "RESERVE_SEAT";
+export const SEND_QUESTION = "SEND_QUESTION";
 
 const initialState = {
   isLoginOpen: false,
@@ -70,7 +71,7 @@ const initialState = {
   },
   selectedSeats: [],
   price: 0,
-  questions: [],
+  questions: {},
   ticketInfo: {
     section: "",
     seat: "",
@@ -168,3 +169,4 @@ export const getReservedAndAvailableSeats = createAction(
   GET_RESERVED_AND_AVAILABLE_SEATS
 );
 export const reserveSeat = createAction(RESERVE_SEAT);
+export const sendQuestion = createAction(SEND_QUESTION);

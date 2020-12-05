@@ -45,7 +45,7 @@ const Tab = () => {
 
   useEffect(() => {
     Action.getReservedAndAvailableSeats();
-  }, [Action]);
+  }, []);
 
   return (
     <MDBContainer>

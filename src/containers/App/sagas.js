@@ -1,4 +1,5 @@
 import { call, put, takeEvery } from "redux-saga/effects";
+import uuid from "react-uuid";
 import {
   REGISTER_USER,
   SET_ERROR_MESSAGE,
@@ -19,6 +20,7 @@ import {
   GET_TICKET_INFO,
   SET_TICKET_INFO,
   RESERVE_SEAT,
+  SEND_QUESTION,
 } from "./reducer";
 import { app } from "../../base";
 import { request } from "../../request";
@@ -37,6 +39,7 @@ import {
   GET_AVAILABLE_RIGHT_BALCONY_SEATS_URL,
   GET_TICKET_INFO_URL,
   PUT_RESERVED_SEAT_URL,
+  SEND_QUESTION_URL,
 } from "./constants";
 
 function* registerUser(action) {
@@ -364,6 +367,24 @@ function* reserveSeat(action) {
   }
 }
 
+function* sendQuestion(action) {
+  try {
+    const response = yield call(request, SEND_QUESTION_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(action.payload),
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: SET_ERROR_MESSAGE,
+      payload: error,
+    });
+  }
+}
+
 function* appSaga() {
   yield takeEvery(REGISTER_USER, registerUser);
   yield takeEvery(SIGNIN_USER, signInUser);
@@ -376,6 +397,7 @@ function* appSaga() {
     getReservedAndAvailableSeats
   );
   yield takeEvery(RESERVE_SEAT, reserveSeat);
+  yield takeEvery(SEND_QUESTION, sendQuestion);
 }
 
 export default appSaga;
