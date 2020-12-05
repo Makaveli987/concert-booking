@@ -11,6 +11,7 @@ import Login from "../../components/DialogManager/Login";
 import Register from "../../components/DialogManager/Register";
 import Dashboard from "../../components/Dashboard";
 import TicketInfo from "../../components/TicketInfo";
+import NotFound from "../../components/NotFound";
 import { EMAIL_USER_ID } from "../../base";
 
 init(EMAIL_USER_ID);
@@ -44,7 +45,7 @@ const App = () => {
         ) : null}
         <Route exac path="/ticket_info" component={TicketInfo}></Route>
         <Route path="*">
-          <div>404</div>
+          <NotFound />
         </Route>
       </Switch>
     </Router>
