@@ -21,6 +21,7 @@ import {
   getPrice,
 } from "../../containers/App/selectors";
 import BuyInfoModal from "../DialogManager/BuyInfoModal";
+import ReservationStatusModal from "../DialogManager/ReservationStatusModal";
 
 const Stadium = () => {
   const dispatch = useDispatch();
@@ -88,7 +89,6 @@ const Stadium = () => {
         />
         <Vip />
         <br />
-        {/* <br /> */}
       </MDBRow>
       <MDBCol>
         <MDBRow>
@@ -136,6 +136,7 @@ const Stadium = () => {
         selectedSeats={Selector.selectedSeats}
         price={Selector.price}
       />
+      <ReservationStatusModal />
     </div>
   );
 };

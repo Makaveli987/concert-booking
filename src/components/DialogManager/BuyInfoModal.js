@@ -19,8 +19,13 @@ import {
 import {
   getIsBuyInfoModalOpen,
   getSelectedSeats,
+  getIsReservationStatusModalOpen,
 } from "../../containers/App/selectors";
-import { reserveSeat, toggleBuyInfoModal } from "../../containers/App/reducer";
+import {
+  reserveSeat,
+  toggleBuyInfoModal,
+  toggleReservationStatusModal,
+} from "../../containers/App/reducer";
 import Seat from "../Stadium/Seat";
 
 const BuyInfoModal = (props) => {
@@ -33,11 +38,14 @@ const BuyInfoModal = (props) => {
 
   const Selector = {
     isBuyInfoModalOpen: useSelector(getIsBuyInfoModalOpen),
+    isReservationStatusModalOpen: useSelector(getIsReservationStatusModalOpen),
     selectedSeats: useSelector(getSelectedSeats),
   };
 
   const Action = {
     toggleBuyInfoModal: (payload) => dispatch(toggleBuyInfoModal(payload)),
+    toggleReservationStatusModal: (payload) =>
+      dispatch(toggleReservationStatusModal(payload)),
     reserveSeat: (payload) => dispatch(reserveSeat(payload)),
   };
 
@@ -56,8 +64,11 @@ const BuyInfoModal = (props) => {
     e.preventDefault();
     const name = e.target.elements.name.value;
     const email = e.target.elements.email.value;
+    const payment = e.target.elements.payment.value;
     if (name === "" || email === "") {
       setErrorMessage("Please fill all fields");
+    } else if (payment === "") {
+      setErrorMessage("Please select payment method");
     } else {
       Selector.selectedSeats.map((seat) => {
         Action.reserveSeat({
@@ -73,15 +84,31 @@ const BuyInfoModal = (props) => {
           seatId: seat.id,
         });
       });
-      // emailjs.send(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, {
-      //   html_message: renderToString(
-      //     <Email name={name} selectedSeats={Selector.selectedSeats} />
-      //   ),
-      //   toEmail: "darko.vidic2@gmail.com",
-      // });
 
-      // open payment window
-      console.log("payment");
+      emailjs
+        .send(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, {
+          html_message: renderToString(
+            <Email name={name} selectedSeats={Selector.selectedSeats} />
+          ),
+          toEmail: email,
+        })
+        .then(
+          (result) => {
+            if (result.status === 200) {
+              Action.toggleReservationStatusModal({
+                status: !Selector.isReservationStatusModalOpen,
+                type: "success",
+              });
+            }
+          },
+          (error) => {
+            Action.toggleReservationStatusModal({
+              status: !Selector.isReservationStatusModalOpen,
+              type: "error",
+            });
+          }
+        );
+      Action.toggleBuyInfoModal(!Selector.isBuyInfoModalOpen);
     }
   };
 
@@ -110,6 +137,9 @@ const BuyInfoModal = (props) => {
       <MDBModal isOpen={modal14} toggle={toggle()} centered>
         <MDBModalHeader toggle={toggle()}>Buy Tickets</MDBModalHeader>
         <MDBModalBody>
+          {errorMessage === "" ? null : (
+            <MDBAlert color="danger">{errorMessage}.</MDBAlert>
+          )}
           <MDBCol>
             <h5>Seats</h5>
             <div>
@@ -118,7 +148,7 @@ const BuyInfoModal = (props) => {
           </MDBCol>
           <hr />
           <MDBCol style={{ margin: "20px 0" }}>
-            <h5>
+            <h5 style={{ marginBottom: "10px" }}>
               Price:{" "}
               <strong style={{ fontSize: "30px", color: "#2bbbad" }}>
                 {props.price}${" "}
@@ -133,9 +163,6 @@ const BuyInfoModal = (props) => {
               }}
             >
               <div className="grey-text">
-                {errorMessage === "" ? null : (
-                  <MDBAlert color="danger">{errorMessage}.</MDBAlert>
-                )}
                 <MDBInput
                   name="name"
                   label="Your name"
@@ -158,9 +185,41 @@ const BuyInfoModal = (props) => {
                   error="wrong"
                   success="right"
                 />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-around",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <div style={{ cursor: "pointer" }}>
+                    <input
+                      style={{ cursor: "pointer" }}
+                      type="radio"
+                      id="paypal"
+                      name="payment"
+                      value="paypal"
+                    />{" "}
+                    <label style={{ cursor: "pointer" }} for="paypal">
+                      Paypal
+                    </label>
+                  </div>
+                  <div style={{ cursor: "pointer" }}>
+                    <input
+                      style={{ cursor: "pointer" }}
+                      type="radio"
+                      name="payment"
+                      value="skrill"
+                      id="skrill"
+                    />{" "}
+                    <label style={{ cursor: "pointer" }} for="skrill">
+                      Skrill
+                    </label>
+                  </div>
+                </div>
               </div>
               <div className="text-center">
-                <MDBBtn type="submit">Payment</MDBBtn>
+                <MDBBtn type="submit">Buy Tickets</MDBBtn>
               </div>
             </form>
           </MDBCol>

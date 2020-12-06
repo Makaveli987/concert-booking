@@ -4,6 +4,8 @@ export const TOGGLE_LOGIN = "TOGGLE_LOGIN";
 export const TOGGLE_REGISTER = "TOGGLE_REGISTER";
 export const TOGGLE_ERROR_MODAL = "TOGGLE_ERROR_MODAL";
 export const TOGGLE_BUY_INFO_MODAL = "TOGGLE_BUY_INFO_MODAL";
+export const TOGGLE_RESERVATION_STATUS_MODAL =
+  "TOGGLE_RESERVATION_STATUS_MODAL";
 export const REGISTER_USER = "REGISTER_USER";
 export const SIGNIN_USER = "SIGIN_USER";
 export const SIGNOUT_USER = "SIGNOUT";
@@ -36,6 +38,8 @@ const initialState = {
   isRegisterOpen: false,
   isErrorModalOpen: {},
   isBuyInfoModalOpen: false,
+  isReservationStatusModalOpen: false,
+  reservationStatusModalType: "",
   errorModalMessage: "",
   errorMessage: "",
   user: null,
@@ -106,6 +110,12 @@ function ticketsReducer(state = initialState, action) {
       };
     case TOGGLE_BUY_INFO_MODAL:
       return { ...state, isBuyInfoModalOpen: action.payload };
+    case TOGGLE_RESERVATION_STATUS_MODAL:
+      return {
+        ...state,
+        isReservationStatusModalOpen: action.payload.status,
+        reservationStatusModalType: action.payload.type,
+      };
     case SET_ERROR_MESSAGE:
       return { ...state, errorMessage: action.payload };
     case SET_VIP_SEATS:
@@ -159,6 +169,9 @@ export const toggleLogin = createAction(TOGGLE_LOGIN);
 export const toggleRegister = createAction(TOGGLE_REGISTER);
 export const toggleErrorModal = createAction(TOGGLE_ERROR_MODAL);
 export const toggleBuyInfoModal = createAction(TOGGLE_BUY_INFO_MODAL);
+export const toggleReservationStatusModal = createAction(
+  TOGGLE_RESERVATION_STATUS_MODAL
+);
 export const registerUser = createAction(REGISTER_USER);
 export const signInUser = createAction(SIGNIN_USER);
 export const signOutUser = createAction(SIGNOUT_USER);
