@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { init } from "emailjs-com";
 import Home from "../../components/Home";
@@ -12,19 +12,19 @@ import Register from "../../components/DialogManager/Register";
 import Dashboard from "../../components/Dashboard";
 import TicketInfo from "../../components/TicketInfo";
 import NotFound from "../../components/NotFound";
+import ScrollToTop from "../../components/ScrollToTop";
 import { EMAIL_USER_ID } from "../../base";
 
 init(EMAIL_USER_ID);
 
 const App = () => {
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  useEffect(() => {
-    setIsAdmin(localStorage.getItem("isAdmin"));
-  }, []);
+  const [isAdmin, setIsAdmin] = useState(
+    localStorage.getItem("isAdmin") || false
+  );
 
   return (
     <Router>
+      <ScrollToTop />
       <Switch>
         <Route exact path="/">
           <Home />

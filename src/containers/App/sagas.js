@@ -21,6 +21,7 @@ import {
   SET_TICKET_INFO,
   RESERVE_SEAT,
   SEND_QUESTION,
+  SET_IS_LOADING,
 } from "./reducer";
 import { app } from "../../base";
 import { request } from "../../request";
@@ -160,6 +161,7 @@ function* signOutUser(action) {
 
 function* getSeats(action) {
   try {
+    yield put({ type: SET_IS_LOADING, payload: true });
     const response = yield call(request, GET_SEATS_URL, {
       method: "GET",
     });
@@ -173,6 +175,7 @@ function* getSeats(action) {
       type: SET_RIGHT_BALCONY_SEATS,
       payload: response.seats.rightBalcony,
     });
+    yield put({ type: SET_IS_LOADING, payload: false });
   } catch (error) {
     console.log(error);
     yield put({

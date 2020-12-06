@@ -28,8 +28,10 @@ export const SET_TICKET_INFO = "SET_TICKET_INFO";
 export const GET_TICKET_INFO = "GET_TICKET_INFO";
 export const RESERVE_SEAT = "RESERVE_SEAT";
 export const SEND_QUESTION = "SEND_QUESTION";
+export const SET_IS_LOADING = "SET_IS_LOADING";
 
 const initialState = {
+  isLoading: false,
   isLoginOpen: false,
   isRegisterOpen: false,
   isErrorModalOpen: {},
@@ -88,6 +90,8 @@ function removeSeat(seats, id) {
 
 function ticketsReducer(state = initialState, action) {
   switch (action.type) {
+    case SET_IS_LOADING:
+      return { ...state, isLoading: action.payload };
     case SET_USER:
       return { ...state, user: action.payload };
     case TOGGLE_LOGIN:

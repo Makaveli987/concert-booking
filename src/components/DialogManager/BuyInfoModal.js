@@ -26,8 +26,10 @@ import Seat from "../Stadium/Seat";
 const BuyInfoModal = (props) => {
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState(
+    localStorage.getItem("username") || ""
+  );
+  const [email, setEmail] = useState(localStorage.getItem("email") || "");
 
   const Selector = {
     isBuyInfoModalOpen: useSelector(getIsBuyInfoModalOpen),
@@ -47,8 +49,6 @@ const BuyInfoModal = (props) => {
 
   useEffect(() => {
     setErrorMessage("");
-    setUsername(localStorage.getItem("username"));
-    setEmail(localStorage.getItem("email"));
     setModal14(Selector.isBuyInfoModalOpen);
   }, [Selector.isBuyInfoModalOpen]);
 

@@ -23,7 +23,7 @@ const TicketInfo = (props) => {
   useEffect(() => {
     let queries = queryString.parse(props.location.search);
     Action.getTicketInfo(queries);
-  }, [Action, props.location.search]);
+  }, []);
 
   return (
     <div>

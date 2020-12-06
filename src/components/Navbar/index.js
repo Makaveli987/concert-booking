@@ -27,9 +27,13 @@ const Navbar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [collapse, setCollapse] = useState(false);
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(
+    localStorage.getItem("username") || ""
+  );
   const [isWideEnough] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(
+    localStorage.getItem("isAdmin") || false
+  );
 
   const Selector = {
     isLoginOpen: useSelector(getIsLoginOpen),
@@ -41,12 +45,6 @@ const Navbar = () => {
     toggleRegister: (payload) => dispatch(toggleRegister(payload)),
     signOutUser: (payload) => dispatch(signOutUser(payload)),
   };
-
-  useEffect(() => {
-    const name = localStorage.getItem("username");
-    setUsername(name);
-    setIsAdmin(localStorage.getItem("isAdmin"));
-  }, []);
 
   const onClick = () => {
     setCollapse(!collapse);
