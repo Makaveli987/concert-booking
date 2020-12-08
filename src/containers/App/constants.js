@@ -34,8 +34,8 @@ export const PRICES = {
 
 export const CHART_LABELS = [
   "Total",
+  "Vip",
   "Floor",
   "Left Balcony",
   "Right Balcony",
-  "Vip",
 ];

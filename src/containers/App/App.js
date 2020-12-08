@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <Router>
-      <ScrollToTop />
+      
       <Switch>
         <Route exact path="/">
           <Home />
@@ -36,10 +36,12 @@ const App = () => {
           <Register />
         </Route>
         <Route exact path="/buy_tickets">
+          <ScrollToTop />
           <BuyTickets />
         </Route>
         {isAdmin ? (
           <Route exac path="/dashboard">
+            <ScrollToTop />
             <Dashboard />
           </Route>
         ) : null}

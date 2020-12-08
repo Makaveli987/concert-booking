@@ -5,7 +5,6 @@ import emailjs from "emailjs-com";
 import { EMAIL_SERVICE_ID } from "../../base";
 import { EMAIL_TEMPLATE_ID } from "../../base";
 import Email from "../Email";
-
 import {
   MDBContainer,
   MDBBtn,
@@ -27,6 +26,7 @@ import {
   toggleReservationStatusModal,
 } from "../../containers/App/reducer";
 import Seat from "../Stadium/Seat";
+import { getCurrentDateAndTime } from "../../request";
 
 const BuyInfoModal = (props) => {
   const dispatch = useDispatch();
@@ -70,9 +70,13 @@ const BuyInfoModal = (props) => {
     } else if (payment === "") {
       setErrorMessage("Please select payment method");
     } else {
+      const currentdate = getCurrentDateAndTime();
+
       Selector.selectedSeats.map((seat) => {
         Action.reserveSeat({
           data: {
+            date: currentdate.date,
+            time: currentdate.time,
             position: seat.position,
             isReserved: true,
             user: {

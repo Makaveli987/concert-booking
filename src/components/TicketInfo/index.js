@@ -44,6 +44,9 @@ const TicketInfo = (props) => {
         <MDBBox tag="p" style={{ color: "#1C2331", fontSize: "20px" }}>
           <strong>Date: </strong> {Selector.ticketInfo.date}
         </MDBBox>
+        <MDBBox tag="p" style={{ color: "#1C2331", fontSize: "20px" }}>
+          <strong>Time: </strong> {Selector.ticketInfo.time}
+        </MDBBox>
       </MDBContainer>
       <Login />
       <Register />

@@ -14,8 +14,8 @@ const Home = () => {
             BANDICO
           </h2>
           <br />
-          <h5 style={{ fontSize: "2vw" }}>November 25</h5>
-          <h5 style={{ fontSize: "2vw" }}>Belgrade</h5>
+          <h5 style={{ fontSize: "2vw" }}>January 16</h5>
+          <h5 style={{ fontSize: "2vw" }}>Stark Arena Belgrade</h5>
           <h5 style={{ fontSize: "2vw" }}>21:00h</h5>
           <br />
 

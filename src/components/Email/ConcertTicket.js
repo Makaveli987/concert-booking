@@ -23,7 +23,7 @@ const ConcertTicket = (props) => {
       </h4>
 
       <p style={{ fontSize: "16px", margin: "0px", fontWeight: "bold" }}>
-        24th January 2020
+        16th January 2020
       </p>
       <p style={{ fontSize: "16px", margin: "0px", fontWeight: "bold" }}>21h</p>
       <p style={{ fontSize: "16px", margin: "0px", fontWeight: "bold" }}>

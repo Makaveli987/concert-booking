@@ -16,3 +16,18 @@ function checkStatus(response) {
 export function request(url, options) {
   return fetch(url, options).then(checkStatus).then(parseJSON);
 }
+
+export function getCurrentDateAndTime() {
+  const currentdate = new Date();
+  const day = currentdate.getDate();
+  const month = currentdate.getMonth() + 1;
+  const year = currentdate.getFullYear();
+  const hours = currentdate.getHours();
+  const minutes = currentdate.getMinutes();
+  const seconds = currentdate.getSeconds();
+
+  return {
+    date: day + "." + month + "." + year,
+    time: hours + ":" + minutes + ":" + seconds,
+  };
+}

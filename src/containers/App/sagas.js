@@ -333,6 +333,7 @@ function* getTicketInfo(action) {
         seat: ticketData.position,
         buyer: ticketData.user.name,
         date: ticketData.date,
+        time: ticketData.time,
       },
     });
   } catch (error) {
