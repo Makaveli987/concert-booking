@@ -6,6 +6,9 @@ export const getIsReservationStatusModalOpen = (state) =>
   state.isReservationStatusModalOpen;
 export const getReservationStatusModalType = (state) =>
   state.reservationStatusModalType;
+export const getIsMessageSentModalOpen = (state) =>
+  state.isMessageSentModalOpen;
+export const getMessageSentModalType = (state) => state.messageSentModalType;
 export const getErrorModalMessage = (state) => state.errorModalMessage;
 export const getErrorMessage = (state) => state.errorMessage;
 export const getUser = (state) => state.user;

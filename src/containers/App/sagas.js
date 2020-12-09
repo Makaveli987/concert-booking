@@ -22,6 +22,7 @@ import {
   RESERVE_SEAT,
   SEND_QUESTION,
   SET_IS_LOADING,
+  TOGGLE_MESSAGE_SENT_MODAL,
 } from "./reducer";
 import { app } from "../../base";
 import { request } from "../../request";
@@ -380,6 +381,17 @@ function* sendQuestion(action) {
       },
       body: JSON.stringify(action.payload),
     });
+    if (response.name) {
+      yield put({
+        type: TOGGLE_MESSAGE_SENT_MODAL,
+        payload: { status: true, type: "success" },
+      });
+    } else {
+      yield put({
+        type: TOGGLE_MESSAGE_SENT_MODAL,
+        payload: { status: true, type: "error" },
+      });
+    }
   } catch (error) {
     console.log(error);
     yield put({

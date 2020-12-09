@@ -13,7 +13,7 @@ import {
 } from "../../containers/App/selectors";
 import { toggleReservationStatusModal } from "../../containers/App/reducer";
 
-const ReservationStatusModal = (props) => {
+const ReservationStatusModal = () => {
   const dispatch = useDispatch();
 
   const Selector = {

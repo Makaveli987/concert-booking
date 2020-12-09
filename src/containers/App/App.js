@@ -14,6 +14,7 @@ import TicketInfo from "../../components/TicketInfo";
 import NotFound from "../../components/NotFound";
 import ScrollToTop from "../../components/ScrollToTop";
 import { EMAIL_USER_ID } from "../../base";
+import MessageSentModal from "../../components/DialogManager/MessageSentModal";
 
 init(EMAIL_USER_ID);
 
@@ -24,7 +25,6 @@ const App = () => {
 
   return (
     <Router>
-      
       <Switch>
         <Route exact path="/">
           <Home />
@@ -34,6 +34,7 @@ const App = () => {
           <Contact />
           <Login />
           <Register />
+          <MessageSentModal />
         </Route>
         <Route exact path="/buy_tickets">
           <ScrollToTop />
